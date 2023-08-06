@@ -69,6 +69,6 @@ export class LoginComponent implements OnInit {
         },
       });
     });
-  }
+  } ////
   //#endregion
 }
