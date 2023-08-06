@@ -22,7 +22,7 @@ namespace Demo.Core
             services.AddSingleton<IAppSettings, AppSettings>();
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IAuthenticateService, AuthenticateService>();
-            //services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         public static void MongoDbIdentityConfig(this IServiceCollection services, IConfiguration configuration)

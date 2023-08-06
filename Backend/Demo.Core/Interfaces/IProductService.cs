@@ -10,8 +10,8 @@ namespace Demo.Core.Interfaces
 {
     public interface IProductService
     {
-        Task<Response<ProductDTO>> GetAllAsync();
-        Response<ProductDTO> GetListByCreateBy(string filter);
+        Task<Response<List<ProductDTO>>> GetAllAsync();
+        Task<Response<List<ProductDTO>>> GetListByCreateBy(string filter);
         Task<Response<ProductDTO>> GetOneAsync(string code);
         Task<ResponseStatus> AddAsync(ProductInput model);
         Task<Response<ProductDTO>> GetByIdAsync(string id);
