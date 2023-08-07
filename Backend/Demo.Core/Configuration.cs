@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Demo.Core.Interfaces;
 using Demo.Core.Services;
+using Demo.Domain.Utilities;
 
 namespace Demo.Core
 {
@@ -23,6 +24,7 @@ namespace Demo.Core
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IAuthenticateService, AuthenticateService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IMenuService, MenuService>();
         }
 
         public static void MongoDbIdentityConfig(this IServiceCollection services, IConfiguration configuration)
@@ -30,7 +32,7 @@ namespace Demo.Core
             var key = Encoding.UTF8.GetBytes(configuration.GetSection("AppSettings:JWT:key").Value!);
             var connectionString = configuration.GetSection("MongoDbSetting:ConnectionString").Value;
             var databaseName = configuration.GetSection("MongoDbSetting:DatabaseName").Value;
-            var Client_URL = configuration.GetSection("AppSettings:Client_URL").Value;
+            var Client_URL = configuration.GetSection(Constants.AppSettings.Client_URL).Value;
 
             BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeSerializer(MongoDB.Bson.BsonType.String));
@@ -61,8 +63,7 @@ namespace Demo.Core
 
             };
 
-            services.ConfigureMongoDbIdentity<User, Role, Guid>(mongoDbIdentityConfig)
-                .AddUserManager<UserManager<User>>()
+            services.ConfigureMongoDbIdentity<User, Role, Guid>(mongoDbIdentityConfig).AddUserManager<UserManager<User>>()
                 .AddSignInManager<SignInManager<User>>()
                 .AddRoleManager<RoleManager<Role>>()
                 .AddDefaultTokenProviders();

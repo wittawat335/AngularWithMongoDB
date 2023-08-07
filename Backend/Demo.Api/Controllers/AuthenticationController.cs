@@ -23,7 +23,11 @@ namespace Demo.Api.Controllers
         [HttpGet("TestEnv")]
         public IActionResult Index()
         {
-            return Ok(_appSettings.TestEnv);
+            var response = new ResponseStatus();
+            response.Message = _appSettings.TestEnv;
+            response.IsSuccess = true;
+
+            return Ok(response);
         }
 
         [HttpPost]

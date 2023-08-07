@@ -9,5 +9,6 @@ namespace Demo.Domain.Models.Collections
     public class User : MongoIdentityUser<Guid>
     {
         public string FullName { get; set; } = string.Empty;
+        public string RoleCode { get; set; } = string.Empty;
     }
 }

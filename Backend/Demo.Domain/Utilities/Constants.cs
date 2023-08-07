@@ -30,6 +30,7 @@ namespace Demo.Domain.Utilities
             }
             public const string Client_URL = "AppSettings:Client_URL";
             public const string CheckEnvironment = "AppSettings:TestEnv";
+            public const string CorsPolicy = "AppSettings:CorsPolicy";
         }
 
         public struct Msg

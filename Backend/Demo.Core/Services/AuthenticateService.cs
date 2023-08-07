@@ -65,47 +65,50 @@ namespace Demo.Core.Services
                     response.IsSuccess = false;
                     response.Message = "Invalid email";
                 }
-                var verigyResult = _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Password);
-                if (verigyResult == PasswordVerificationResult.Failed)
-                {
-                    //handle invalid login credentials...
-                    response.IsSuccess = false;
-                    response.Message = "Invalid password";
-                }
                 else
                 {
-                    //handle success login...
-                    //all is well if ew reach here
-                    var claims = new List<Claim>
+                    var verigyResult = _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Password);
+                    if (verigyResult == PasswordVerificationResult.Failed)
+                    {
+                        //handle invalid login credentials...
+                        response.IsSuccess = false;
+                        response.Message = "Invalid password";
+                    }
+                    else
+                    {
+                        //handle success login...
+                        //all is well if ew reach here
+                        var claims = new List<Claim>
                     {
                         new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                         new Claim(ClaimTypes.Name, user.UserName),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
                     };
-                    var roles = await _userManager.GetRolesAsync(user);
-                    var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x));
-                    claims.AddRange(roleClaims);
+                        var roles = await _userManager.GetRolesAsync(user);
+                        var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x));
+                        claims.AddRange(roleClaims);
 
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appConfig.key));
-                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                    var expires = DateTime.Now.AddMinutes(30);
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appConfig.key));
+                        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                        var expires = DateTime.Now.AddMinutes(30);
 
-                    var token = new JwtSecurityToken(
-                        issuer: _appConfig.Client_URL,
-                        audience: _appConfig.Client_URL,
-                        claims: claims,
-                        expires: expires,
-                        signingCredentials: creds
+                        var token = new JwtSecurityToken(
+                            issuer: _appConfig.Client_URL,
+                            audience: _appConfig.Client_URL,
+                            claims: claims,
+                            expires: expires,
+                            signingCredentials: creds
 
-                        );
-                    loginResponse.AccessToken = new JwtSecurityTokenHandler().WriteToken(token);
-                    loginResponse.UserId = user?.Id.ToString();
-                    loginResponse.Email = user?.Email;
+                            );
+                        loginResponse.AccessToken = new JwtSecurityTokenHandler().WriteToken(token);
+                        loginResponse.UserId = user?.Id.ToString();
+                        loginResponse.Email = user?.Email;
 
-                    response.Value = loginResponse;
-                    response.IsSuccess = true;
-                    response.Message = "Login Successful";
+                        response.Value = loginResponse;
+                        response.IsSuccess = true;
+                        response.Message = "Login Successful";
+                    }
                 }
             }
             catch (Exception ex)
@@ -136,7 +139,7 @@ namespace Demo.Core.Services
                         Email = request.Email,
                         ConcurrencyStamp = Guid.NewGuid().ToString(),
                         UserName = request.Email,
-
+                        RoleCode = "MA"
                     };
                     var createUserResult = await _userManager.CreateAsync(userExists, request.Password);
                     if (!createUserResult.Succeeded)
