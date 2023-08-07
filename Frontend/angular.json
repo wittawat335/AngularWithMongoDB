@@ -55,7 +55,7 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-              "node_modules/animejs/lib/anime.min.js"
+              "node_modules/animejs/lib/anime.min.js"        
             ]
           },
           "configurations": {

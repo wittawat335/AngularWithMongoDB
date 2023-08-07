@@ -59,6 +59,7 @@ namespace Demo.Core.Services
             var loginResponse = new LoginResponse();
             try
             {
+                //var email = request.Email + "@example.com";
                 var user = await _userManager.FindByEmailAsync(request.Email);
                 if (user == null)
                 {
@@ -102,8 +103,10 @@ namespace Demo.Core.Services
 
                             );
                         loginResponse.AccessToken = new JwtSecurityTokenHandler().WriteToken(token);
-                        loginResponse.UserId = user?.Id.ToString();
-                        loginResponse.Email = user?.Email;
+                        loginResponse.UserId = user.Id.ToString();
+                        loginResponse.Email = user.Email;
+                        loginResponse.fullName = user.FullName;
+                        loginResponse.roleName = roles.FirstOrDefault();
 
                         response.Value = loginResponse;
                         response.IsSuccess = true;

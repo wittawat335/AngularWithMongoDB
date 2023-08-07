@@ -1,14 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Menu } from 'src/app/class/menu';
+import { MenuService } from 'src/app/services/menu.service';
 import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styles: [],
 })
-export class LayoutComponent {
-  constructor(private router: Router, private utService: UtilityService) {}
+export class LayoutComponent implements OnInit {
+  listMenu: Menu[] = [];
+  userName: string = '';
+  roleUser: string = '';
+
+  constructor(
+    private router: Router,
+    private menuService: MenuService,
+    private utService: UtilityService
+  ) {}
+
+  ngOnInit(): void {
+    this.getMenu();
+  }
+
+  getMenu() {
+    const user = this.utService.getSessionUser();
+    if (user != null) {
+      this.userName = user.fullName;
+      this.roleUser = user.roleName;
+
+      this.menuService.GetList(user.userId).subscribe({
+        next: (data) => {
+          if (data.isSuccess) this.listMenu = data.value;
+        },
+        error: (e) => {},
+      });
+    }
+  }
 
   logOut() {
     this.utService.removeSessionUser();

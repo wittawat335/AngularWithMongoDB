@@ -5,10 +5,10 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductComponent } from './components/layout/pages/product/product.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ProductComponent],
+  declarations: [AppComponent, LoginComponent, LayoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

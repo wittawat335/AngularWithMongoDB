@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: 'pages',
     loadChildren: () =>
-      import('./components/Layout/layout.module').then((m) => m.LayoutModule),
+      import('./components/layout/layout.module').then((m) => m.LayoutModule),
     //canActivate: [AuthGuard], //form auth/auth.guard.ts
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
