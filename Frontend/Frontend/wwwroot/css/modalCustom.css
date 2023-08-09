@@ -1,0 +1,73 @@
+﻿/* Full width modal */
+.modal-full.modal-dialog {
+    width: 90%;
+}
+
+@media (max-width: 768px) {
+    .modal-full.modal-dialog {
+        width: auto;
+    }
+}
+
+/* Percen width modal */
+.modal-20.modal-dialog {
+    width: 20%;
+}
+
+.modal-30.modal-dialog {
+    width: 30%;
+}
+
+.modal-36.modal-dialog {
+    width: 36%;
+}
+
+.modal-40.modal-dialog {
+    width: 40%;
+}
+
+.modal-50.modal-dialog {
+    width: 50%;
+}
+
+.modal-55.modal-dialog {
+    width: 55%;
+}
+
+.modal-60.modal-dialog {
+    width: 60%;
+}
+
+.modal-70.modal-dialog {
+    width: 70%;
+}
+
+.modal-75.modal-dialog {
+    width: 75%;
+}
+
+.modal {
+    --bs-modal-width: 80%;
+}
+
+.modal-90.modal-dialog {
+    width: 90%;
+}
+
+.modal-95.modal-dialog {
+    width: 95%;
+}
+
+.modal-99.modal-dialog {
+    width: 99%;
+}
+
+.modal-100.modal-dialog {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .modal-20.modal-dialog, .modal-30.modal-dialog, .modal-40.modal-dialog, .modal-50.modal-dialog, .modal-60.modal-dialog, .modal-70.modal-dialog, .modal-80.modal-dialog, .modal-90.modal-dialog, .modal-95.modal-dialog {
+        width: 95%;
+    }
+}
