@@ -132,7 +132,7 @@ namespace Demo.Core.Services
                 if (userExists != null)
                 {
                     response.IsSuccess = false;
-                    response.Message = "ser already exists";
+                    response.Message = "user already exists";
                 }
                 else
                 {
@@ -141,8 +141,8 @@ namespace Demo.Core.Services
                         FullName = request.FullName,
                         Email = request.Email,
                         ConcurrencyStamp = Guid.NewGuid().ToString(),
-                        UserName = request.Email,
-                        RoleCode = "MA"
+                        UserName = request.Username,
+                        RoleCode = request.RoleCode
                     };
                     var createUserResult = await _userManager.CreateAsync(userExists, request.Password);
                     if (!createUserResult.Succeeded)
@@ -154,7 +154,7 @@ namespace Demo.Core.Services
                     {
                         //user is created...
                         //then add user to a role...
-                        var addUserToRoleResult = await _userManager.AddToRoleAsync(userExists, "Manager");
+                        var addUserToRoleResult = await _userManager.AddToRoleAsync(userExists, request.RoleName);
                         if (!addUserToRoleResult.Succeeded)
                         {
                             response.Message = $"Create user succeeded but could not add user to role {addUserToRoleResult?.Errors?.First()?.Description}";

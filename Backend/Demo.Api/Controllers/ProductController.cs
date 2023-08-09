@@ -34,7 +34,7 @@ namespace Demo.Api.Controllers
             return Ok(await _service.UpdateAsync(model));
         }
 
-        [HttpDelete("Delete")]
+        [HttpDelete]
         public async Task<IActionResult> Delete(string id)
         {
             return Ok(await _service.DeleteByIdAsync(id));

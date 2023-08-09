@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,14 @@ namespace Demo.Domain.DTOs.Product
 {
     public class ProductDTO
     {
-        public string? Id { get; set; }
-        public string? ProductName { get; set; }
-        public decimal? Price { get; set; }
-        public int? Stock { get; set; }
-        public bool? IsActive { get; set; }
-        public string? CreateBy { get; set; }
-        public DateTime? CreateDate { get; set; }
+        public string Id { get; set; }
+        public string CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public string ProductName { get; set; }
+        public decimal Price { get; set; }
+        public int Stock { get; set; }
+        public int IsActive { get; set; }
+        public string CreateBy { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

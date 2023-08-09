@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Demo.Domain.DTOs.Category;
 using Demo.Domain.DTOs.Menu;
 using Demo.Domain.DTOs.Product;
 using Demo.Domain.Models.Collections;
@@ -16,18 +17,29 @@ namespace Demo.Core.AutoMapper
             //Input
             CreateMap<MenuDTO, Menu>().ForMember(x => x.Id, opt => opt.MapFrom(origin => new ObjectId(origin.Id)))
                  .ForMember(x => x.IsActive, opt => opt.MapFrom(origin => origin.IsActive == 1 ? true : false));
+
             CreateMap<MenuInput, Menu>().ForMember(x => x.IsActive, opt => opt.MapFrom(origin => origin.IsActive == 1 ? true : false));
 
             #region Products
             CreateMap<Products, ProductDTO>() //Output 
+                .ForMember(x => x.IsActive, opt => opt.MapFrom(origin => origin.IsActive == true ? 1 : 0))
                 .ForMember(x => x.Id, opt => opt.MapFrom(origin => origin.Id.ToString()));
+
             CreateMap<ProductDTO, Products>() //Input
                 .ForMember(x => x.Id, opt => opt.MapFrom(origin => new ObjectId(origin.Id)))
-                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
-            CreateMap<ProductInput, Products>() //Input
+                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now))
+                .ForMember(x => x.IsActive, opt => opt.MapFrom(origin => origin.IsActive == 1 ? true : false));
+
+            CreateMap<ProductInput, Products>() //New
                 .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
             #endregion
 
+            CreateMap<Category, CategoryDTO>() //Output 
+              .ForMember(x => x.Id, opt => opt.MapFrom(origin => origin.Id.ToString()));
+
+            CreateMap<CategoryDTO, Category>() //Output 
+             .ForMember(x => x.Id, opt => opt.MapFrom(origin => new ObjectId(origin.Id)))
+             .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
         }
     }
 }

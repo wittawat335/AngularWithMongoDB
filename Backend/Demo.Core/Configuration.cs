@@ -24,6 +24,7 @@ namespace Demo.Core
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IAuthenticateService, AuthenticateService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMenuService, MenuService>();
         }
 

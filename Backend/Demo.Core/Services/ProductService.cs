@@ -6,6 +6,7 @@ using Demo.Domain.Models.Collections;
 using Demo.Domain.RepositoryContract;
 using Demo.Domain.Utilities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,20 +17,39 @@ namespace Demo.Core.Services
     public class ProductService : IProductService
     {
         private readonly IMongoRepository<Products> _repository;
+        private readonly IMongoRepository<Category> _categoryRepository;
         private readonly IMapper _mapper;
 
-        public ProductService(IMongoRepository<Products> repository, IMapper mapper)
+        public ProductService(IMongoRepository<Products> repository, IMongoRepository<Category> categoryRepository, IMapper mapper)
         {
             _repository = repository;
+            _categoryRepository = categoryRepository;
             _mapper = mapper;
         }
 
         public async Task<Response<List<ProductDTO>>> GetAllAsync()
         {
+            IQueryable<Products> tbProduct = _repository.AsQueryable();
+            IQueryable<Category> tbCategory = _categoryRepository.AsQueryable();
             var response = new Response<List<ProductDTO>>();
             try
             {
-                response.Value = _mapper.Map<List<ProductDTO>>(await _repository.GetAll());
+                var model = (from p in tbProduct
+                             join c in tbCategory on p.CategoryId equals c.Id
+                             select new ProductDTO
+                             {
+                                 Id = p.Id.ToString(),
+                                 CategoryId = c.Id.ToString(),
+                                 CategoryName = c.Name,
+                                 ProductName = p.ProductName,
+                                 Price = p.Price,
+                                 Stock = p.Stock,
+                                 IsActive = p.IsActive == true ? 1 : 0,
+                                 CreateBy = p.CreateBy,
+                                 CreateDate = p.CreateDate
+                             }).AsQueryable();
+
+                response.Value = model.ToList();
                 response.IsSuccess = Constants.StatusData.True;
                 response.Message = Constants.Msg.GetList;
             }

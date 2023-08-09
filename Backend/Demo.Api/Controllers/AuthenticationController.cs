@@ -44,7 +44,7 @@ namespace Demo.Api.Controllers
             return Ok(await _service.RegisterAsync(request));
         }
 
-        [Authorize(Roles = "Manager")]
+        //[Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("CreateRole")]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleRequest request)

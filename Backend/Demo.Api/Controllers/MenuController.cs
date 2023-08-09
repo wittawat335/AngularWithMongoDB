@@ -1,16 +1,14 @@
 ﻿using Demo.Core.Interfaces;
-using Demo.Core.Services;
 using Demo.Domain.DTOs.Menu;
-using Demo.Domain.DTOs.Product;
-using Demo.Domain.Models;
 using Demo.Domain.Models.Collections;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MenuController : ControllerBase
     {
         private readonly IMenuService _service;
@@ -25,25 +23,28 @@ namespace Demo.Api.Controllers
             return Ok(_service.GetList(userId));
         }
 
-
+        [Authorize(Roles = "Manager")]
         [HttpPost("Add")]
         public async Task<IActionResult> Add(MenuInput model)
         {
             return Ok(await _service.AddAsync(model));
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost("AddRoleMenu")]
         public async Task<IActionResult> AddRoleMenu(RoleMenu model)
         {
             return Ok(await _service.AddRoleManuAsync(model));
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPut("Update")]
         public async Task<IActionResult> Update(MenuDTO model)
         {
             return Ok(await _service.UpdateAsync(model));
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(string id)
         {
