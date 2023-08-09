@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vqLiARg/duwaY/jL60cPCJst2fGDyNd8YWjsjUwiiBQ=",
+  "Hash": "WteQxkQInPeYEaKKWEGTiPHB18m7GICUg2rOutmzeXA=",
   "Source": "Frontend",
   "BasePath": "_content/Frontend",
   "Mode": "Default",
@@ -253,23 +253,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
-    },
-    {
-      "Identity": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\img\\.net Core.png",
-      "SourceId": "Frontend",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\",
-      "BasePath": "_content/Frontend",
-      "RelativePath": "img/.net Core.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\.net Core.png"
     },
     {
       "Identity": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\img\\apple-touch-icon.png",

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -108,9 +109,11 @@ namespace Demo.Core.Services
                         loginResponse.fullName = user.FullName;
                         loginResponse.roleName = roles.FirstOrDefault();
 
+
                         response.Value = loginResponse;
                         response.IsSuccess = true;
                         response.Message = "Login Successful";
+                        response.Url = "/Home/Index";
                     }
                 }
             }

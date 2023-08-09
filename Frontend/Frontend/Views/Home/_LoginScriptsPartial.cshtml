@@ -1,7 +1,54 @@
-﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+﻿@using Frontend.Models.ViewModel.Login;
+@using Frontend.Utilities;
+@model LoginRequest;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
         integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer">
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
 <script src="~/js/pages/login/javascript.js"></script>
+<script src="~/js/pages/layout/custom.js"></script>
+<script src="~/js/pages/layout/validatetor.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/pages/layout/sweetalertcustom.js"></script>
+<script>
+    var userLogin = '@Html.IdFor(x => x.Email)';
+    var password = '@Html.IdFor(x => x.Password)';
+
+    function FormValidate() {
+        var msg = '';
+        $(':input[type="text"]').css("border-color", "");
+
+        if (setValidateById(userLogin)) {
+            msg = 'Please enter UserLogin';
+        }
+        if (setValidateById(password)) {
+            msg = 'Please enter Password';
+        }
+
+        return msg;
+    }
+
+    function Login() {
+        var msg = FormValidate();
+        if (msg != '') {
+            swalMessage('warning', msg);
+        }
+        else {
+            var url = '@Url.Content(Constants.Url.Home.Login)';
+            var data = {
+                "Email": $('#userLogin').val(),
+                "Password": $('#password').val()
+            };
+            $.post(url, data, function (response) {
+                if (response.isSuccess) {
+                    window.location.href = response.url;
+                }
+                else {
+                    swalMessage('error', response.message);
+                }
+            });
+        }
+    }
+</script>

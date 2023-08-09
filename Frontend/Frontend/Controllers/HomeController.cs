@@ -1,5 +1,9 @@
-﻿using Frontend.Models;
+﻿using Frontend.Core.Interfaces;
+using Frontend.Models;
+using Frontend.Models.ViewModel.Login;
+using Frontend.Utilities;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace Frontend.Controllers
@@ -7,10 +11,12 @@ namespace Frontend.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ILoginService _service;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ILoginService service)
         {
             _logger = logger;
+            _service = service;
         }
 
         public IActionResult Index()
@@ -21,6 +27,11 @@ namespace Frontend.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginRequest request)
+        {
+            return new JsonResult(await _service.Login(request));
         }
 
 
