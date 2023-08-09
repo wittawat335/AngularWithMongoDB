@@ -1,0 +1,11 @@
+﻿.select2-selection_rendered {
+    line-height: 31px !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 38px !important;
+}
+
+.select-selection__arrow {
+    height: 34px !important;
+}
