@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Frontend.bundle.scp.css"
     },
     {
+      "Id": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\css\\Pages\\Login.css",
+      "PackagePath": "staticwebassets\\css\\Pages\\Login.css"
+    },
+    {
       "Id": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\css\\ProgressBar.css",
       "PackagePath": "staticwebassets\\css\\ProgressBar.css"
     },
@@ -177,6 +181,10 @@
       "PackagePath": "staticwebassets\\js\\Pages\\Layout\\validatetor.js"
     },
     {
+      "Id": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\Pages\\Login\\JavaScript.js",
+      "PackagePath": "staticwebassets\\js\\Pages\\Login\\JavaScript.js"
+    },
+    {
       "Id": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\Pages\\Master\\script.js",
       "PackagePath": "staticwebassets\\js\\Pages\\Master\\script.js"
     },
@@ -203,6 +211,10 @@
     {
       "Id": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\Pages\\User\\script.js",
       "PackagePath": "staticwebassets\\js\\Pages\\User\\script.js"
+    },
+    {
+      "Id": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\assets\\main.js",
+      "PackagePath": "staticwebassets\\js\\assets\\main.js"
     },
     {
       "Id": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\jquery.js",

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tx+wmG0YxkBtKEnuUx9CgOLpiYw44IruRKoLXyozIec=",
+  "Hash": "vqLiARg/duwaY/jL60cPCJst2fGDyNd8YWjsjUwiiBQ=",
   "Source": "Frontend",
   "BasePath": "_content/Frontend",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\modalCustom.css"
+    },
+    {
+      "Identity": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\css\\Pages\\Login.css",
+      "SourceId": "Frontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\",
+      "BasePath": "_content/Frontend",
+      "RelativePath": "css/Pages/Login.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Pages\\Login.css"
     },
     {
       "Identity": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\css\\ProgressBar.css",
@@ -663,6 +680,23 @@
       "OriginalItemSpec": "wwwroot\\img\\user.png"
     },
     {
+      "Identity": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\assets\\main.js",
+      "SourceId": "Frontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\",
+      "BasePath": "_content/Frontend",
+      "RelativePath": "js/assets/main.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\assets\\main.js"
+    },
+    {
       "Identity": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\DatePicker\\DateFunctions.js",
       "SourceId": "Frontend",
       "SourceType": "Discovered",
@@ -831,6 +865,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Pages\\Layout\\validatetor.js"
+    },
+    {
+      "Identity": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\Pages\\Login\\JavaScript.js",
+      "SourceId": "Frontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\",
+      "BasePath": "_content/Frontend",
+      "RelativePath": "js/Pages/Login/JavaScript.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Pages\\Login\\JavaScript.js"
     },
     {
       "Identity": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\Pages\\Master\\script.js",
