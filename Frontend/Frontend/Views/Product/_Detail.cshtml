@@ -1,0 +1,67 @@
+﻿@using Frontend.Models.ViewModel.Product;
+@using Frontend.Utilities;
+@model ProductViewModel;
+@{
+    var common = new Common();
+}
+<form id="frmDetail" role="form" method="post">
+    <div class="form-group mt-2">
+        <label asp-for="productDTO.ProductName" class="form-label"></label>
+        <input asp-for="productDTO.ProductName" class="form-control" type="text" maxlength="20" />
+    </div>
+      <div class="form-group mt-2">
+        <label asp-for="productDTO.CategoryId" class="form-label"></label>
+        <select asp-for="productDTO.CategoryId"
+                class="form-control" 
+                asp-items="@(new SelectList (Model.listCategory, Constants.CategoryDDL.Code, Constants.CategoryDDL.Text))">
+            <option disabled selected>@Constants.SelectOption.SelectOne</option>
+        </select>
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="productDTO.Price" class="form-label"></label>
+        <input asp-for="productDTO.Price" class="form-control" type="number" maxlength="20" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="productDTO.Stock" class="form-label"></label>
+        <input asp-for="productDTO.Stock" class="form-control" type="number" maxlength="20" />
+    </div>
+    <div class="form-group mt-2 mb-3">
+        <label asp-for="productDTO.IsActive" class="form-label"></label>
+        <select asp-for="productDTO.IsActive"
+                class="form-control"
+                asp-items="@(new SelectList(common.GetListStatus(), Constants.StatusListDDl.Code, Constants.StatusListDDl.Text))">
+        </select>
+    </div>
+    <div class="row">
+        <hr>
+        <div class="col-md-12">
+            <div class="float-end">
+                <button id="btnClose"
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+                @if (Model.action == Constants.Action.New || Model.action == Constants.Action.Edit)
+                {
+                <button id="btnSave"
+                        type="button"
+                        class="btn btn-primary"
+                            onclick="Save('frmDetail','@Url.Content(Constants.UrlAction.Product.Save)')">
+                    Save
+                </button>
+                }
+                
+            </div>
+        </div>
+    </div>
+    <div style="display: none">
+        @{
+            await Html.RenderPartialAsync("_HiddenValue", Model);
+        }
+    </div>
+</form>
+
+@{
+    await Html.RenderPartialAsync("_DetailScriptsPartial", Model);
+}

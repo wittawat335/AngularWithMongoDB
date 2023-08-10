@@ -30,8 +30,8 @@ namespace Demo.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
-        [Route("Login")]
+        [AllowAnonymous]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             return Ok(await _service.LoginAsync(request));

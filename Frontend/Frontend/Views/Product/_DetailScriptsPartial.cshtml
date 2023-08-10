@@ -1,0 +1,40 @@
+﻿@using Frontend.Models.ViewModel.Product;
+@using Frontend.Utilities;
+@model ProductViewModel;
+<script>
+    var ProductName = '@Html.IdFor(x => x.productDTO.ProductName)';
+    var CategoryId = '@Html.IdFor(x => x.productDTO.CategoryId)';
+    var Price = '@Html.IdFor(x => x.productDTO.Price)';
+    var Stock = '@Html.IdFor(x => x.productDTO.Stock)';
+
+    $(document).ready(function () {
+        CheckAction();
+    });
+
+    function CheckAction() {
+        if ('@Model.action' == '@Constants.Action.View') {
+            SetReadOnlyByDiv('frmDetail', true);
+        }
+    }
+
+    function FormValidate() {
+        var msg = '';
+        $(':input[type="text"]').css("border-color", "");
+        $('#' + CategoryId).css("border-color", "")
+
+        if (setValidateById(ProductName)) {
+            msg = 'Please complete the information' + ' ' + 'ProductName';
+        }
+        if (setValidateById(CategoryId)) {
+            msg = 'Please complete the information' + ' ' + 'CategoryType';
+        }
+        if (setValidateById(Price)) {
+            msg = 'Please complete the information' + ' ' + 'Price';
+        }
+        if (setValidateById(Stock)) {
+            msg = 'Please complete the information' + ' ' + 'Stock';
+        }
+
+        return msg;
+    }
+</script>

@@ -1,35 +1,40 @@
-﻿using Frontend.Core.Interfaces;
-using Frontend.Models;
+﻿using AutoMapper;
+using Frontend.Core.AppSettings;
+using Frontend.Core.Interfaces;
+using Frontend.DTOs;
+using Frontend.Models.ViewModel;
 using Frontend.Models.ViewModel.Login;
 using Frontend.Utilities;
 using Newtonsoft.Json;
-using System.Net.Http;
 using System.Text;
 
 namespace Frontend.Core.Services
 {
     public class LoginService : ILoginService
     {
-        HttpClientHandler _httpClientHandler = new HttpClientHandler();
+        private readonly IAppSetting _config;
+        private readonly IBaseApiService<LoginResponse> _baseApiService;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IMapper _mapper;
 
-        public LoginService()
+        public LoginService(IAppSetting config, IBaseApiService<LoginResponse> baseApiService, IHttpContextAccessor contextAccessor, IMapper mapper)
         {
-            _httpClientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            _config = config;
+            _mapper = mapper;
+            _baseApiService = baseApiService;
+            _contextAccessor = contextAccessor;
         }
-        public async Task<Response<LoginResponse>> Login(LoginRequest model)
+
+        public async Task<Response<LoginResponse>> Login(LoginResponse requert)
         {
+            var urlApi = _config.BaseUrlApi + Constants.UrlApi.Login;
             var response = new Response<LoginResponse>();
             try
             {
-                using (var http = new HttpClient(_httpClientHandler))
-                {
-                    StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-                    using (var result = await http.PostAsync("https://localhost:7150/api/Authentication/Login", content))
-                    {
-                        string apiResult = await result.Content.ReadAsStringAsync();
-                        response = JsonConvert.DeserializeObject<Response<LoginResponse>>(apiResult);
-                    }
-                }
+                response = await _baseApiService.PostAsJsonAsync(requert, urlApi);
+
+                if (response.IsSuccess)
+                    SetSession(response.Value);
             }
             catch (Exception ex)
             {
@@ -37,6 +42,17 @@ namespace Frontend.Core.Services
             }
 
             return response;
+        }
+
+        public void SetSession(LoginResponse response)
+        {
+            var sessionModel = _mapper.Map<SessionDTO>(response);
+            string sessionString = JsonConvert.SerializeObject(sessionModel);
+            string tokenString = JsonConvert.SerializeObject(sessionModel.AccessToken);
+            if (sessionString != null)
+                _contextAccessor.HttpContext.Session.SetString(Constants.SessionKey.sessionLogin, sessionString);
+            if (tokenString != null)
+                _contextAccessor.HttpContext.Session.SetString(Constants.SessionKey.accessToken, tokenString);
         }
     }
 }

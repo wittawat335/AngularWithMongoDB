@@ -113,7 +113,7 @@ namespace Demo.Core.Services
                         response.Value = loginResponse;
                         response.IsSuccess = true;
                         response.Message = "Login Successful";
-                        response.Url = "/Home/Index";
+                        response.Url = "/Product/Index";
                     }
                 }
             }

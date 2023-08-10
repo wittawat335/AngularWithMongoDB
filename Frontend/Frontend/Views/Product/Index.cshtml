@@ -1,0 +1,61 @@
+﻿@using Frontend.DTOs;
+@using Frontend.Models.ViewModel.Product;
+@using Frontend.Utilities;
+@model ProductDTO;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="pagetitle">
+    <h1>Product</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item">Product</li>
+            <li class="breadcrumb-item active">Index</li>
+        </ol>
+    </nav>
+</div>
+<div class="row" id="dvTable">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h5 class="card-title ">Search Result</h5>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1">
+                        <a class="btn btn-success me-0"
+                           onclick=PopupDetail('',"@Constants.Action.New")>
+                            <i class="bi bi-plus-lg me-1"></i>
+                            @Constants.Action.New
+                        </a>
+                    </div>
+                </div>
+                <table id="dtResult" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ProductName</th>
+                            <th scope="col">CategoryName</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Create By</th>
+                            <th scope="col">Create Date</th>
+                            <th scope="col">IsActive</th>
+                            <th scope="col" style="width:15%"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_Data">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_DataTableScriptsPartial", Model);
+    }
+}

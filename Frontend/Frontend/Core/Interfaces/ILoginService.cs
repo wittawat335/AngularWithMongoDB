@@ -6,6 +6,6 @@ namespace Frontend.Core.Interfaces
 {
     public interface ILoginService
     {
-        Task<Response<LoginResponse>> Login(LoginRequest model);
+        Task<Response<LoginResponse>> Login(LoginResponse model);
     }
 }

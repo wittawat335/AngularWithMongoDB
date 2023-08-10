@@ -61,9 +61,23 @@ namespace Demo.Core.Services
             return response;
         }
 
-        public Task<Response<ProductDTO>> GetByIdAsync(string id)
+        public async Task<Response<ProductDTO>> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var response = new Response<ProductDTO>();
+            try
+            {
+                response.Value = _mapper.Map<ProductDTO>(await _repository.FindByIdAsync(id));
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.UpdateComplete;
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Exception Occurs : " + ex.Message;
+            }
+
+            return response;
         }
 
         public async Task<Response<List<ProductDTO>>> GetListByCreateBy(string filter)

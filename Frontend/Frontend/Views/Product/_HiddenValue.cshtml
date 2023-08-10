@@ -1,0 +1,14 @@
+﻿@using Frontend.Models.ViewModel.Product;
+@using Frontend.Utilities;
+@{
+    var common = new Common();
+    var session = common.GetValueBySession();
+}
+@model ProductViewModel
+<input type="text"
+       name="productDTO.Id"
+       value='@Model.productDTO.Id' />
+<input type="text"
+       name="productDTO.CreateBy"
+       value='@session.fullName' />
+<input type="text" name="action" value='@Model.action' />

@@ -10,13 +10,12 @@
 </head>
 <body>
     <partial name="_Header" />
-
+    <partial name="_SideBar" />
     <main role="main" id="main" class="pb-3 main">
         @RenderBody()
     </main>
-
+    <partial name="_Modal" />
     <partial name="_Footer" />
-
     @{
         await Html.RenderPartialAsync("_LayoutScriptsPartial");
     }

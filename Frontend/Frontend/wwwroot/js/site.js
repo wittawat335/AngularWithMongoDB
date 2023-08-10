@@ -16663,7 +16663,7 @@ function Save(formId, urlAction) {
         var data = $('#' + formId).serializeObject();
 
         $.post(url, data, function (result) {
-            if (result.status) {
+			if (result.isSuccess) {
                 swalMessage('success', result.message);
                 closeModal();
                 GetList();

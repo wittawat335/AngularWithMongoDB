@@ -1,6 +1,7 @@
 ﻿var formId = '';
 var urlAction = '';
 function Save(formId, urlAction) {
+    alert('3');
     if (formId == '')
         formId = 'frmDetail';
     var msg = FormValidate();
@@ -10,14 +11,15 @@ function Save(formId, urlAction) {
         var url = urlAction;
         var data = $('#' + formId).serializeObject();
 
-        $.post(url, data, function (result) {
-            if (result.status) {
-                swalMessage('success', result.message);
+        $.post(url, data, function (response) {
+            console.log(response);
+            if (response.isSuccess) {
+                swalMessage('success', response.message);
                 closeModal();
                 GetList();
             }
             else {
-                swalMessage('error', result.message);
+                swalMessage('error', response.message);
             }
         });
     }
