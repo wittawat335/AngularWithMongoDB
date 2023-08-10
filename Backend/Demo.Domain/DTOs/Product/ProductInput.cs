@@ -11,7 +11,6 @@ namespace Demo.Domain.DTOs.Product
     public class ProductInput
     {
         public string ProductName { get; set; }
-        [BsonRepresentation(BsonType.ObjectId)]
         public string CategoryId { get; set; }
         public decimal Price { get; set; }
         public int Stock { get; set; }

@@ -5,6 +5,7 @@ using Demo.Domain.Models;
 using Demo.Domain.Models.Collections;
 using Demo.Domain.RepositoryContract;
 using Demo.Domain.Utilities;
+using MongoDB.Bson;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -89,12 +90,13 @@ namespace Demo.Core.Services
         {
             throw new NotImplementedException();
         }
-        public async Task<ResponseStatus> AddAsync(ProductInput model)
+        public async Task<ResponseStatus> AddAsync(ProductDTO model)
         {
             var response = new ResponseStatus();
             try
             {
-                await _repository.InsertOneAsync(_mapper.Map<Products>(model));
+                var test = _mapper.Map<ProductInput>(model);
+                await _repository.InsertOneAsync(_mapper.Map<Products>(test));
                 response.IsSuccess = Constants.StatusData.True;
                 response.Message = Constants.Msg.InsertComplete;
             }

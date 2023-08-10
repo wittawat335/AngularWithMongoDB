@@ -32,6 +32,9 @@ namespace Demo.Core.AutoMapper
 
             CreateMap<ProductInput, Products>() //New
                 .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
+            CreateMap<ProductDTO, ProductInput>() //New
+              .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now))
+              .ForMember(x => x.IsActive, opt => opt.MapFrom(origin => origin.IsActive == 1 ? true : false));
             #endregion
 
             CreateMap<Category, CategoryDTO>() //Output 

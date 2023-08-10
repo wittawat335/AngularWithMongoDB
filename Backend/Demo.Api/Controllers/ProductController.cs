@@ -32,7 +32,7 @@ namespace Demo.Api.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> Add(ProductInput model)
+        public async Task<IActionResult> Add(ProductDTO model)
         {
             return Ok(await _service.AddAsync(model));
         }

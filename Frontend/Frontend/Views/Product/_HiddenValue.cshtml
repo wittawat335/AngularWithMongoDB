@@ -5,9 +5,10 @@
     var session = common.GetValueBySession();
 }
 @model ProductViewModel
-<input type="text"
-       name="productDTO.Id"
-       value='@Model.productDTO.Id' />
+@if (Model.action == Constants.Action.Edit)
+{
+    <input type="text"name="productDTO.Id"value='@Model.productDTO.Id' />
+}
 <input type="text"
        name="productDTO.CreateBy"
        value='@session.fullName' />

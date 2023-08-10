@@ -13,7 +13,7 @@ namespace Demo.Core.Interfaces
         Task<Response<List<ProductDTO>>> GetAllAsync();
         Task<Response<List<ProductDTO>>> GetListByCreateBy(string filter);
         Task<Response<ProductDTO>> GetOneAsync(string code);
-        Task<ResponseStatus> AddAsync(ProductInput model);
+        Task<ResponseStatus> AddAsync(ProductDTO model);
         Task<Response<ProductDTO>> GetByIdAsync(string id);
         Task<ResponseStatus> UpdateAsync(ProductDTO model);
         Task<ResponseStatus> DeleteByIdAsync(string id);

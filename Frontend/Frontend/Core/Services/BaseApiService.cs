@@ -134,21 +134,13 @@ namespace Frontend.Core.Services
             {
                 using (var client = new HttpClient(_httpClientHandler))
                 {
-                    client.BaseAddress = new Uri(url);
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
-                    //StringContent content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
-                    //HttpResponseMessage result = await client.PostAsync(url, content);
-                    HttpResponseMessage result = await client.PostAsJsonAsync<T>(url, request);
+                    HttpResponseMessage result = await client.PostAsJsonAsync(url, request);
+
                     if (result.IsSuccessStatusCode)
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
                         response = JsonConvert.DeserializeObject<ResponseStatus>(data);
-                    }
-                    else
-                    {
-                        response.Message = Constants.MessageError.CallAPI;
                     }
                 }
             }
