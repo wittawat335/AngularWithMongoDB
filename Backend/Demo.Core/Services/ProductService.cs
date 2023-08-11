@@ -92,10 +92,19 @@ namespace Demo.Core.Services
             return response;
         }
 
-        public async Task<Response<List<ProductDTO>>> GetListByCreateBy(string filter)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<List<ProductDTO>> GetListByName(string query)
+        //{
+        //    var response = new List<ProductDTO>();
+        //    try
+        //    {
+        //        var list = GetAllAsync(null);
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //    return list.;
+        //}
 
         public Task<Response<ProductDTO>> GetOneAsync(string code)
         {

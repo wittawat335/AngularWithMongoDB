@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WteQxkQInPeYEaKKWEGTiPHB18m7GICUg2rOutmzeXA=",
+  "Hash": "9VHtvy+IbQ5Jo1NtnKMXc/U9jnPq7U8UyB6QUMEzX7U=",
   "Source": "Frontend",
   "BasePath": "_content/Frontend",
   "Mode": "Default",
@@ -882,6 +882,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Pages\\Master\\script.js"
+    },
+    {
+      "Identity": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\Pages\\Product\\select2.js",
+      "SourceId": "Frontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\",
+      "BasePath": "_content/Frontend",
+      "RelativePath": "js/Pages/Product/select2.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Pages\\Product\\select2.js"
     },
     {
       "Identity": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\Pages\\Program\\DataTableScript.js",

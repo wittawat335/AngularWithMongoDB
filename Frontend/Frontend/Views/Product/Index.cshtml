@@ -19,11 +19,11 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Search Master</h5>
+        <h5 class="card-title">Search Filter</h5>
         <form method="post" class="row g-3">
             <div class="col-md-4">
                 <label for="txtCode" class="form-label">Product</label>
-                <input type="text" class="form-control" id="txtProduct">
+                <select class="form-control" id="txtProduct" name="txtProduct" onchange="GetList()"></select>
             </div>
             <div class="col-md-4">
                 <label for="ddlMasterType" class="form-label">Category</label>
@@ -93,4 +93,5 @@
     @{
         await Html.RenderPartialAsync("_DataTableScriptsPartial", Model);
     }
+    <script src="~/js/pages/product/select2.js"></script>
 }

@@ -47,7 +47,7 @@ namespace Frontend.Core.Services
 
             return response;
         }
-        public async Task<Response<T>> GetAsyncById(string path, string id)
+        public async Task<Response<T>> GetAsyncById(string path)
         {
             var session = common.GetValueBySession();
             var response = new Response<T>();
@@ -56,7 +56,7 @@ namespace Frontend.Core.Services
                 using (var client = new HttpClient(_httpClientHandler))
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
-                    HttpResponseMessage result = await client.GetAsync(path + string.Format("/GetById?id={0}", id));
+                    HttpResponseMessage result = await client.GetAsync(path);
                     if (result.IsSuccessStatusCode)
                     {
                         string data = result.Content.ReadAsStringAsync().Result;

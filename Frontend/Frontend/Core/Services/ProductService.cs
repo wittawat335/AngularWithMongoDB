@@ -4,7 +4,10 @@ using Frontend.DTOs;
 using Frontend.Models.ViewModel.Product;
 using Frontend.Utilities;
 using Newtonsoft.Json;
+using System.IO;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text;
 
 namespace Frontend.Core.Services
 {
@@ -15,7 +18,6 @@ namespace Frontend.Core.Services
         private readonly IAppSetting _config;
         HttpClientHandler _httpClientHandler = new HttpClientHandler();
         Utilities.Common common = new Utilities.Common();
-
         public ProductService(IBaseApiService<ProductDTO> baseApiService, IBaseApiService<CategoryDTO> cateApiService, IAppSetting config)
         {
             _cateApiService = cateApiService;
@@ -23,7 +25,6 @@ namespace Frontend.Core.Services
             _baseApiService = baseApiService;
             _httpClientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         }
-
         public async Task<Response<List<ProductDTO>>> Search(string url, ProductSearch filter)
         {
             var session = common.GetValueBySession();
@@ -40,9 +41,7 @@ namespace Frontend.Core.Services
                         response = JsonConvert.DeserializeObject<Response<List<ProductDTO>>>(data);
                     }
                     else
-                    {
                         response.Message = Constants.MessageError.CallAPI;
-                    }
                 }
             }
             catch
@@ -51,25 +50,21 @@ namespace Frontend.Core.Services
             }
             return response;
         }
-
-        public async Task<ProductViewModel> Detail(string id, string action, string url, string url2)
+        public async Task<ProductViewModel> Detail(string id, string action)
         {
             var responseProduct = new Response<ProductDTO>();
-            var responseCategory = new Response<List<CategoryDTO>>();
             var model = new ProductViewModel();
-            var urlProductApi = _config.BaseUrlApi + url;
-            var urlCategoryApi = _config.BaseUrlApi + url2;
-
+            var urlProductApi = _config.BaseUrlApi + string.Format("Product/GetById?id={0}", id);
+            var urlCategoryApi = _config.BaseUrlApi + "Category/GetAll";
             try
             {
                 if (!string.IsNullOrEmpty(id))
-                    responseProduct = await _baseApiService.GetAsyncById(urlProductApi, id);
+                    responseProduct = await _baseApiService.GetAsyncById(urlProductApi);
 
-                responseCategory = await _cateApiService.GetListAsync(urlCategoryApi);
+                var listCategory = await _cateApiService.GetListAsync(urlCategoryApi);
                 model.productDTO = responseProduct.Value;
-                model.listCategory = responseCategory.Value;
+                model.listCategory = listCategory.Value;
                 model.action = action;
-
             }
             catch
             {
@@ -78,7 +73,6 @@ namespace Frontend.Core.Services
 
             return model;
         }
-
         public async Task<ResponseStatus> Save(ProductViewModel model)
         {
             var response = new ResponseStatus();
@@ -109,7 +103,6 @@ namespace Frontend.Core.Services
             }
             return response;
         }
-
         public async Task<ResponseStatus> Delete(string id)
         {
             var baseUrlApi = _config.BaseUrlApi;
@@ -123,6 +116,15 @@ namespace Frontend.Core.Services
                 response.Message = ex.Message;
             }
             return response;
+        }
+
+        public async Task<List<ProductDTO>> Select2Product(string url, string query)
+        {
+            var filter = new ProductSearch();
+            var response = await Search(url, filter);
+            response.Value = response.Value.Where(x => x.ProductName.ToLower().Contains(query.ToLower())).ToList();
+
+            return response.Value;
         }
     }
 }

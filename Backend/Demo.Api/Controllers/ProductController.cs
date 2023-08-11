@@ -25,7 +25,7 @@ namespace Demo.Api.Controllers
             return Ok(await _service.GetAllAsync(null));
         }
 
-        [HttpPost("Search")]
+        [HttpPost("GetAll")]
         public async Task<IActionResult> Search(ProductSearchModel filter)
         {
             return Ok(await _service.GetAllAsync(filter));
@@ -36,6 +36,13 @@ namespace Demo.Api.Controllers
         {
             return Ok(await _service.GetByIdAsync(id));
         }
+
+
+        //[HttpGet("Select2Product")]
+        //public async Task<IActionResult> Select2Product(string query)
+        //{
+        //    return Ok(await _service.GetListByName(query));
+        //}
 
         [HttpPost("Add")]
         public async Task<IActionResult> Add(ProductDTO model)

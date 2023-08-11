@@ -185,6 +185,10 @@
       "PackagePath": "staticwebassets\\js\\Pages\\Master\\script.js"
     },
     {
+      "Id": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\Pages\\Product\\select2.js",
+      "PackagePath": "staticwebassets\\js\\Pages\\Product\\select2.js"
+    },
+    {
       "Id": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\wwwroot\\js\\Pages\\Program\\DataTableScript.js",
       "PackagePath": "staticwebassets\\js\\Pages\\Program\\DataTableScript.js"
     },

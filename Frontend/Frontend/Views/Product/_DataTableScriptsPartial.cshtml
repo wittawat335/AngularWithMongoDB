@@ -26,7 +26,6 @@
         })
     }
     function OnSuccess(response) {
-        console.log(response);
         $('#dtResult').DataTable({
             bDestroy: true,
             bProcessing: true,
@@ -52,7 +51,8 @@
                 {
                     data: 'Price',
                     render: function (data, type, row, meta) {
-                        return row.price
+                        if (row.price === null) return "";
+                        return commaSeparateNumber(row.price);
                     }
                 },
                 {
