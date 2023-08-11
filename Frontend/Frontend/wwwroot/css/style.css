@@ -372,7 +372,7 @@ h6 {
 .logo span {
     font-size: 26px;
     font-weight: 700;
-    color: #012970;
+    color: floralwhite;
     font-family: "Nunito", sans-serif;
 }
 
@@ -381,7 +381,7 @@ h6 {
     z-index: 997;
     height: 60px;
     box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-    background-color: #000;
+    background-color: darkred;
     padding-left: 20px;
     /* Toggle Sidebar Button */
     /* Search Bar */

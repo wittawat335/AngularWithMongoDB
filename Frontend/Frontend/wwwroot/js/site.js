@@ -16527,7 +16527,7 @@ function realDelete(code, url) {
     var data = { "code": code };
 
     $.post(url, data, function (result) {
-        if (result.status) {
+        if (result.isSuccess) {
             swalMessage('success', result.message);
             closeModal();
             GetList();
@@ -16680,7 +16680,7 @@ function SaveDataTable(id, url) {
     var table = $('#' + id).DataTable();
     var data = table.$('input, select').serialize();
     $.post(url, data, function (result) {
-        if (result.status) {
+        if (result.isSuccess) {
             swalMessage('success', result.message);
             BindData('Reset');
         }

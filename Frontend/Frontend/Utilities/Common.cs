@@ -19,7 +19,7 @@ namespace Frontend.Utilities
 
         public class ddlValue
         {
-            public int CODE { get; set; }
+            public string CODE { get; set; }
             public string TEXT { get; set; }
         }
 
@@ -30,12 +30,12 @@ namespace Frontend.Utilities
             try
             {
 
-                item.CODE = 1;
+                item.CODE = "A";
                 item.TEXT = "Active";
                 list.Add(item);
 
                 item = new ddlValue();
-                item.CODE = 0;
+                item.CODE = "I";
                 item.TEXT = "Inactive";
                 list.Add(item);
 

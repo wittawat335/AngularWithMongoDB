@@ -16,7 +16,7 @@ namespace Demo.Domain.DTOs.Product
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public int Stock { get; set; }
-        public int IsActive { get; set; }
+        public string IsActive { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
     }

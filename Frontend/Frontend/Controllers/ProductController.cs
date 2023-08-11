@@ -12,24 +12,43 @@ namespace Frontend.Controllers
     {
         private readonly IProductService _service;
         private readonly IBaseApiService<ProductDTO> _baseApiService;
+        private readonly IBaseApiService<CategoryDTO> _cateApiService;
         private readonly IAppSetting _config;
 
-        public ProductController(IProductService service, IBaseApiService<ProductDTO> baseApiService, IAppSetting config)
+        public ProductController(IProductService service,
+            IBaseApiService<ProductDTO> baseApiService,
+            IBaseApiService<CategoryDTO> cateApiService,
+            IAppSetting config)
         {
             _service = service;
             _baseApiService = baseApiService;
+            _cateApiService = cateApiService;
             _config = config;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var response = new Response<List<CategoryDTO>>();
+            var model = new ProductViewModel();
+            response = await _cateApiService.GetListAsync(_config.BaseUrlApi + "Category/GetAll");
+            model.listCategory = response.Value;
+
+            return View(model);
         }
 
-        public async Task<IActionResult> GetListAsync()
+        public async Task<IActionResult> GetListAsync(ProductSearch search)
         {
+            var response = new Response<List<ProductDTO>>();
+            response = await _service.Search(_config.BaseUrlApi + "Product/Search", search);
 
-            return new JsonResult(await _baseApiService.GetListAsync(_config.BaseUrlApi + "Product/GetAll"));
+            return new JsonResult(response);
+            //return new JsonResult(await _baseApiService.GetListAsync(_config.BaseUrlApi + "Product/GetAll"));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(ProductSearch search)
+        {
+            return new JsonResult(await _service.Search(_config.BaseUrlApi + "Product/GetAll", search));
         }
 
         [HttpPost]
@@ -44,10 +63,10 @@ namespace Frontend.Controllers
             return new JsonResult(await _service.Save(model));
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(string code)
-        //{
-        //    return new JsonResult(await _service.Delete(code));
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Delete(string code)
+        {
+            return new JsonResult(await _service.Delete(code));
+        }
     }
 }

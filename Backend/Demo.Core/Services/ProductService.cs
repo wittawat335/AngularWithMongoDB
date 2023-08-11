@@ -3,6 +3,7 @@ using Demo.Core.Interfaces;
 using Demo.Domain.DTOs.Product;
 using Demo.Domain.Models;
 using Demo.Domain.Models.Collections;
+using Demo.Domain.Models.ViewModels;
 using Demo.Domain.RepositoryContract;
 using Demo.Domain.Utilities;
 using MongoDB.Bson;
@@ -28,7 +29,7 @@ namespace Demo.Core.Services
             _mapper = mapper;
         }
 
-        public async Task<Response<List<ProductDTO>>> GetAllAsync()
+        public async Task<Response<List<ProductDTO>>> GetAllAsync(ProductSearchModel filter)
         {
             IQueryable<Products> tbProduct = _repository.AsQueryable();
             IQueryable<Category> tbCategory = _categoryRepository.AsQueryable();
@@ -45,10 +46,20 @@ namespace Demo.Core.Services
                                  ProductName = p.ProductName,
                                  Price = p.Price,
                                  Stock = p.Stock,
-                                 IsActive = p.IsActive == true ? 1 : 0,
+                                 IsActive = p.IsActive == true ? "A" : "I",
                                  CreateBy = p.CreateBy,
                                  CreateDate = p.CreateDate
                              }).AsQueryable();
+
+                if (filter != null)
+                {
+                    if (!string.IsNullOrEmpty(filter.ProductId))
+                        model = model.Where(x => x.Id.Contains(filter.ProductId));
+                    if (!string.IsNullOrEmpty(filter.CategoryId))
+                        model = model.Where(x => x.CategoryId.Contains(filter.CategoryId));
+                    if (filter.IsActive != null)
+                        model = model.Where(x => x.IsActive == filter.IsActive);
+                }
 
                 response.Value = model.ToList();
                 response.IsSuccess = Constants.StatusData.True;

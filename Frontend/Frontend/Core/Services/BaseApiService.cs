@@ -2,6 +2,7 @@
 using Frontend.Core.Interfaces;
 using Frontend.Utilities;
 using Newtonsoft.Json;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -21,7 +22,7 @@ namespace Frontend.Core.Services
             _httpClientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             _contxt = contxt;
         }
-        public async Task<Response<List<T>>> GetListAsync(string url)
+        public async Task<Response<List<T>>> GetListAsync(string path)
         {
             var session = common.GetValueBySession();
             var response = new Response<List<T>>();
@@ -30,7 +31,7 @@ namespace Frontend.Core.Services
                 using (var client = new HttpClient(_httpClientHandler))
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
-                    HttpResponseMessage result = await client.GetAsync(url);
+                    HttpResponseMessage result = await client.GetAsync(path);
 
                     if (result.IsSuccessStatusCode)
                     {
@@ -46,8 +47,7 @@ namespace Frontend.Core.Services
 
             return response;
         }
-
-        public async Task<Response<T>> GetAsyncById(string url, string id)
+        public async Task<Response<T>> GetAsyncById(string path, string id)
         {
             var session = common.GetValueBySession();
             var response = new Response<T>();
@@ -56,7 +56,7 @@ namespace Frontend.Core.Services
                 using (var client = new HttpClient(_httpClientHandler))
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
-                    HttpResponseMessage result = await client.GetAsync(url + string.Format("/GetById?id={0}", id));
+                    HttpResponseMessage result = await client.GetAsync(path + string.Format("/GetById?id={0}", id));
                     if (result.IsSuccessStatusCode)
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
@@ -71,19 +71,43 @@ namespace Frontend.Core.Services
 
             return response;
         }
+        public async Task<ResponseStatus> InsertAsync(string path, T request)
+        {
+            var session = common.GetValueBySession();
+            var response = new ResponseStatus();
+            try
+            {
+                using (var client = new HttpClient(_httpClientHandler))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
+                    HttpResponseMessage result = await client.PostAsJsonAsync(path, request);
 
-        public async Task<Response<T>> PostAsJsonAsync(T request, string url)
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string data = result.Content.ReadAsStringAsync().Result;
+                        response = JsonConvert.DeserializeObject<ResponseStatus>(data);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+        public async Task<Response<T>> PostAsJsonAsync(string path, T request)
         {
             var response = new Response<T>();
             try
             {
                 using (var client = new HttpClient(_httpClientHandler))
                 {
-                    client.BaseAddress = new Uri(url);
+                    client.BaseAddress = new Uri(path);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpResponseMessage result = await client.PostAsJsonAsync<T>(url, request);
+                    HttpResponseMessage result = await client.PostAsJsonAsync<T>(path, request);
                     if (result.IsSuccessStatusCode)
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
@@ -102,8 +126,7 @@ namespace Frontend.Core.Services
 
             return response;
         }
-
-        public async Task<Response<T>> PostAsync(T request, string url)
+        public async Task<Response<T>> PostAsync(string path, T request)
         {
             var response = new Response<T>();
             try
@@ -111,7 +134,7 @@ namespace Frontend.Core.Services
                 using (var client = new HttpClient(_httpClientHandler))
                 {
                     StringContent content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
-                    using (var result = await client.PostAsync(url, content))
+                    using (var result = await client.PostAsync(path, content))
                     {
                         string apiResult = await result.Content.ReadAsStringAsync();
                         response = JsonConvert.DeserializeObject<Response<T>>(apiResult);
@@ -125,8 +148,11 @@ namespace Frontend.Core.Services
 
             return response;
         }
-
-        public async Task<ResponseStatus> InsertAsync(T request, string url)
+        public Task<Response<T>> PatchAsync(string path, T request)
+        {
+            throw new NotImplementedException();
+        }
+        public async Task<ResponseStatus> PutAsync(string path, T request)
         {
             var session = common.GetValueBySession();
             var response = new ResponseStatus();
@@ -135,7 +161,7 @@ namespace Frontend.Core.Services
                 using (var client = new HttpClient(_httpClientHandler))
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
-                    HttpResponseMessage result = await client.PostAsJsonAsync(url, request);
+                    HttpResponseMessage result = await client.PutAsJsonAsync(path, request);
 
                     if (result.IsSuccessStatusCode)
                     {
@@ -151,13 +177,7 @@ namespace Frontend.Core.Services
 
             return response;
         }
-
-        public Task<Response<T>> PatchAsync(T request, string url)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<ResponseStatus> PutAsync(T requestm, string url)
+        public async Task<ResponseStatus> DeleteAsync(string path, string id)
         {
             var session = common.GetValueBySession();
             var response = new ResponseStatus();
@@ -166,7 +186,8 @@ namespace Frontend.Core.Services
                 using (var client = new HttpClient(_httpClientHandler))
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
-                    HttpResponseMessage result = await client.PutAsJsonAsync(url, requestm);
+                    HttpResponseMessage result = await client.DeleteAsync(path + string.Format("?id={0}", id));
+
 
                     if (result.IsSuccessStatusCode)
                     {
@@ -181,11 +202,6 @@ namespace Frontend.Core.Services
             }
 
             return response;
-        }
-
-        public Task<Response<T>> DeleteAsync(string id, string url)
-        {
-            throw new NotImplementedException();
         }
     }
 }

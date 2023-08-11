@@ -1,6 +1,7 @@
 ﻿@using Frontend.DTOs;
+@using Frontend.Models.ViewModel.Product;
 @using Frontend.Utilities;
-@model ProductDTO;
+@model ProductViewModel;
 <script>
     var urlDelete = '@Url.Content(Constants.UrlAction.Product.Delete)';
     var permEdit;
@@ -17,12 +18,15 @@
             url: '@Url.Content(Constants.UrlAction.Product.GetList)',
             dataType: "json",
             data: {
-               
+                ProductId: $('#txtProduct').val(),
+                CategoryId: $('#ddlCategory').val(),
+                IsActive: $('#ddlStatus').val()
             },
             success: OnSuccess
         })
     }
     function OnSuccess(response) {
+        console.log(response);
         $('#dtResult').DataTable({
             bDestroy: true,
             bProcessing: true,
@@ -74,12 +78,12 @@
                     data: 'IsActive',
                     render: function (data, type, row, meta) {
                         switch (row.isActive) {
-                            case 1:
+                            case "A":
                                 return '<span class="badge bg-success">'
                                     + '' + 'Active' + ''
                                     + '</span>'
                                 break;
-                            case 0:
+                            case "I":
                                 return '<span class="badge bg-dark">'
                                     + '' + 'InActive' + ''
                                     + '</span> '

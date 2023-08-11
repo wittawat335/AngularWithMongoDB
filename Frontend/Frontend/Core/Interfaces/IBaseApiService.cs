@@ -5,13 +5,14 @@ namespace Frontend.Core.Interfaces
 {
     public interface IBaseApiService<T> where T : class
     {
-        Task<Response<List<T>>> GetListAsync(string url);
-        Task<Response<T>> GetAsyncById(string url, string id);
-        Task<Response<T>> PostAsync(T request, string url);
-        Task<Response<T>> PostAsJsonAsync(T request, string url);
-        Task<ResponseStatus> PutAsync(T request, string url);
-        Task<Response<T>> PatchAsync(T request, string url);
-        Task<Response<T>> DeleteAsync(string url, string id);
-        Task<ResponseStatus> InsertAsync(T request, string url);
+        Task<Response<List<T>>> GetListAsync(string path);
+        Task<Response<T>> GetAsyncById(string path, string id);
+        Task<ResponseStatus> InsertAsync(string path, T request);
+        Task<Response<T>> PostAsync(string path, T request);
+        Task<Response<T>> PostAsJsonAsync(string path, T request);
+        Task<ResponseStatus> PutAsync(string path, T request);
+        Task<Response<T>> PatchAsync(string path, T request);
+        Task<ResponseStatus> DeleteAsync(string path, string id);
+
     }
 }

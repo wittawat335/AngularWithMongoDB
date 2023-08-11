@@ -1,5 +1,6 @@
 ﻿using Demo.Core.Interfaces;
 using Demo.Domain.DTOs.Product;
+using Demo.Domain.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +22,14 @@ namespace Demo.Api.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _service.GetAllAsync());
+            return Ok(await _service.GetAllAsync(null));
         }
 
+        [HttpPost("Search")]
+        public async Task<IActionResult> Search(ProductSearchModel filter)
+        {
+            return Ok(await _service.GetAllAsync(filter));
+        }
 
         [HttpGet("GetById")]
         public async Task<IActionResult> GetById(string id)
@@ -43,7 +49,7 @@ namespace Demo.Api.Controllers
             return Ok(await _service.UpdateAsync(model));
         }
 
-        [HttpDelete]
+        [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(string id)
         {
             return Ok(await _service.DeleteByIdAsync(id));
