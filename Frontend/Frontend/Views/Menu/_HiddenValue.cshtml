@@ -1,0 +1,12 @@
+﻿@using Frontend.Models.ViewModel.Menu;
+@using Frontend.Utilities;
+@{
+    var common = new Common();
+    var session = common.GetValueBySession();
+}
+@model MenuViewModel
+@if (Model.action == Constants.Action.Edit)
+{
+    <input type="text" name="productDTO.Id" value='@Model.menuDTO.Id' />
+}
+<input type="text" name="action" value='@Model.action' />

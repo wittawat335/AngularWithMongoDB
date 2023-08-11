@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Demo.Core.Interfaces;
+using Demo.Domain.DTOs.Category;
 using Demo.Domain.DTOs.Menu;
 using Demo.Domain.DTOs.Product;
 using Demo.Domain.Models;
@@ -29,6 +30,42 @@ namespace Demo.Core.Services
             _roleMenuRepository = roleMenuRepository;
             _menuRepository = menuRepository;
             _mapper = mapper;
+        }
+
+        public async Task<Response<List<MenuDTO>>> GetAll()
+        {
+            var response = new Response<List<MenuDTO>>();
+            try
+            {
+                response.Value = _mapper.Map<List<MenuDTO>>(await _menuRepository.GetAll());
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.GetList;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<Response<MenuDTO>> GetByIdAsync(string id)
+        {
+            var response = new Response<MenuDTO>();
+            try
+            {
+                response.Value = _mapper.Map<MenuDTO>(await _menuRepository.FindByIdAsync(id));
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.UpdateComplete;
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Exception Occurs : " + ex.Message;
+            }
+
+            return response;
         }
 
         public async Task<ResponseStatus> AddAsync(MenuInput model)

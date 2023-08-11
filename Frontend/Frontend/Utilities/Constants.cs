@@ -35,6 +35,12 @@ namespace Frontend.Utilities
                 public const string Save = "~/Product/Save";
                 public const string Delete = "~/Product/Delete";
             }
+            public struct Menu
+            {
+                public const string GetList = "~/Menu/GetList";
+                public const string Save = "~/Menu/Save";
+                public const string Delete = "~/Menu/Delete";
+            }
         }
         public struct MessageError
         {

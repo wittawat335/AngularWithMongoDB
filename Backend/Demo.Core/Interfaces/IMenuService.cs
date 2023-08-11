@@ -13,6 +13,8 @@ namespace Demo.Core.Interfaces
     public interface IMenuService
     {
         Response<List<MenuDTO>> GetList(Guid userId);
+        Task<Response<List<MenuDTO>>> GetAll();
+        Task<Response<MenuDTO>> GetByIdAsync(string id);
         Task<ResponseStatus> AddAsync(MenuInput model);
         Task<ResponseStatus> AddRoleManuAsync(RoleMenu model);
         Task<ResponseStatus> UpdateAsync(MenuDTO model);

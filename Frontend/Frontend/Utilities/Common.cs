@@ -23,6 +23,11 @@ namespace Frontend.Utilities
             public string TEXT { get; set; }
         }
 
+        public string FormattedAmount(decimal value)
+        {
+            return value == null ? "null" : string.Format("{0:C}", value);
+        }
+
         public List<ddlValue> GetListStatus()
         {
             List<ddlValue> list = new List<ddlValue>();

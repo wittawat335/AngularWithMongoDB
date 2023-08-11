@@ -12,7 +12,7 @@ namespace Frontend.Core.Interfaces
         Task<Response<T>> PostAsJsonAsync(string path, T request);
         Task<ResponseStatus> PutAsync(string path, T request);
         Task<Response<T>> PatchAsync(string path, T request);
-        Task<ResponseStatus> DeleteAsync(string path, string id);
+        Task<ResponseStatus> DeleteAsync(string path);
 
     }
 }

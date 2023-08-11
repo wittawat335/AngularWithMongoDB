@@ -177,7 +177,7 @@ namespace Frontend.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> DeleteAsync(string path, string id)
+        public async Task<ResponseStatus> DeleteAsync(string path)
         {
             var session = common.GetValueBySession();
             var response = new ResponseStatus();
@@ -186,7 +186,7 @@ namespace Frontend.Core.Services
                 using (var client = new HttpClient(_httpClientHandler))
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
-                    HttpResponseMessage result = await client.DeleteAsync(path + string.Format("?id={0}", id));
+                    HttpResponseMessage result = await client.DeleteAsync(path);
 
 
                     if (result.IsSuccessStatusCode)

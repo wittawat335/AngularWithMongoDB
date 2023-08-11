@@ -10,6 +10,5 @@ namespace Frontend.Core.Interfaces
         Task<List<ProductDTO>> Select2Product(string url, string query);
         Task<ProductViewModel> Detail(string id, string action);
         Task<ResponseStatus> Save(ProductViewModel model);
-        Task<ResponseStatus> Delete(string id);
     }
 }

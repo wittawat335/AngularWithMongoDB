@@ -15,6 +15,10 @@ namespace Frontend.Core
             services.AddTransient(typeof(IBaseApiService<>), typeof(BaseApiService<>));
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         public static void ConfigSession(this IServiceCollection services, IConfiguration configuration)

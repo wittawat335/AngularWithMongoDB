@@ -103,21 +103,6 @@ namespace Frontend.Core.Services
             }
             return response;
         }
-        public async Task<ResponseStatus> Delete(string id)
-        {
-            var baseUrlApi = _config.BaseUrlApi;
-            var response = new ResponseStatus();
-            try
-            {
-                response = await _baseApiService.DeleteAsync(baseUrlApi + "Product/Delete", id);
-            }
-            catch (Exception ex)
-            {
-                response.Message = ex.Message;
-            }
-            return response;
-        }
-
         public async Task<List<ProductDTO>> Select2Product(string url, string query)
         {
             var filter = new ProductSearch();

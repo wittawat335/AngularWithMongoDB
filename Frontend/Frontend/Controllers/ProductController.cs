@@ -5,6 +5,7 @@ using Frontend.Models.ViewModel.Product;
 using Frontend.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace Frontend.Controllers
 {
@@ -12,12 +13,14 @@ namespace Frontend.Controllers
     {
         private readonly IProductService _service;
         private readonly IBaseApiService<CategoryDTO> _cateApiService;
+        private readonly IBaseApiService<ProductDTO> _baseApiService;
         private readonly IAppSetting _config;
 
-        public ProductController(IProductService service, IBaseApiService<CategoryDTO> cateApiService, IAppSetting config)
+        public ProductController(IProductService service, IBaseApiService<ProductDTO> baseApiService, IBaseApiService<CategoryDTO> cateApiService, IAppSetting config)
         {
             _service = service;
             _cateApiService = cateApiService;
+            _baseApiService = baseApiService;
             _config = config;
         }
 
@@ -54,9 +57,9 @@ namespace Frontend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(string code)
+        public async Task<IActionResult> Delete(string id)
         {
-            return new JsonResult(await _service.Delete(code));
+            return new JsonResult(await _baseApiService.DeleteAsync(_config.BaseUrlApi + string.Format("Product/{0}", id)));
         }
     }
 }

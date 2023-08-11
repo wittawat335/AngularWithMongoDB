@@ -44,7 +44,7 @@ namespace Demo.Core.Services
                                  CategoryId = c.Id.ToString(),
                                  CategoryName = c.Name,
                                  ProductName = p.ProductName,
-                                 Price = p.Price,
+                                 Price = p.Price.ToString("0:N2"),
                                  Stock = p.Stock,
                                  IsActive = p.IsActive == true ? "A" : "I",
                                  CreateBy = p.CreateBy,

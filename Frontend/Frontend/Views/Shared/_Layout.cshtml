@@ -10,8 +10,13 @@
 </head>
 <body>
     <partial name="_Header" />
-    <partial name="_SideBar" />
+   @*  <partial name="_SideBar" /> *@
+    @await Component.InvokeAsync("Menu")
     <main role="main" id="main" class="pb-3 main">
+        <div class="overlay" id="idLoading"></div>
+        <div class="popup" id="idLoader">
+            <partial name="_Loading" />
+        </div>
         @RenderBody()
     </main>
     <partial name="_Modal" />

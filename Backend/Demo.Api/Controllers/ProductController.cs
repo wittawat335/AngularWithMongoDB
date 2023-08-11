@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -37,13 +37,6 @@ namespace Demo.Api.Controllers
             return Ok(await _service.GetByIdAsync(id));
         }
 
-
-        //[HttpGet("Select2Product")]
-        //public async Task<IActionResult> Select2Product(string query)
-        //{
-        //    return Ok(await _service.GetListByName(query));
-        //}
-
         [HttpPost("Add")]
         public async Task<IActionResult> Add(ProductDTO model)
         {
@@ -56,7 +49,7 @@ namespace Demo.Api.Controllers
             return Ok(await _service.UpdateAsync(model));
         }
 
-        [HttpDelete("Delete")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             return Ok(await _service.DeleteByIdAsync(id));

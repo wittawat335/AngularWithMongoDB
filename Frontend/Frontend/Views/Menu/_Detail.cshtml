@@ -1,0 +1,75 @@
+﻿@using Frontend.Models.ViewModel.Menu;
+@using Frontend.Utilities;
+@model MenuViewModel;
+@{
+    var common = new Common();
+}
+<form id="frmDetail" role="form" method="post">
+    <div class="form-group mt-2">
+        <label asp-for="menuDTO.MenuCode" class="form-label"></label>
+        <input asp-for="menuDTO.MenuCode" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="menuDTO.Name" class="form-label"></label>
+        <input asp-for="menuDTO.Name" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="menuDTO.Icon" class="form-label"></label>
+        <input asp-for="menuDTO.Icon" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="menuDTO.Url" class="form-label"></label>
+        <input asp-for="menuDTO.Url" class="form-control" type="text" maxlength="20" />
+    </div>
+      <div class="form-group mt-2">
+        <label asp-for="menuDTO.Level" class="form-label"></label>
+        <input asp-for="menuDTO.Level" class="form-control" type="number" maxlength="20" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="menuDTO.ParentCode" class="form-label"></label>
+        <input asp-for="menuDTO.ParentCode" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="menuDTO.Order" class="form-label"></label>
+        <input asp-for="menuDTO.Order" class="form-control" type="number" maxlength="20" />
+    </div>
+    <div class="form-group mt-2 mb-3">
+        <label asp-for="menuDTO.IsActive" class="form-label"></label>
+        <select asp-for="menuDTO.IsActive"
+                class="form-control"
+                asp-items="@(new SelectList(common.GetListStatus(), Constants.StatusListDDl.Code, Constants.StatusListDDl.Text))">
+        </select>
+    </div>
+    <div class="row">
+        <hr>
+        <div class="col-md-12">
+            <div class="float-end">
+                <button id="btnClose"
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+                @if (Model.action == Constants.Action.New || Model.action == Constants.Action.Edit)
+                {
+                    <button id="btnSave"
+                            type="button"
+                            class="btn btn-primary"
+                            onclick="Save('frmDetail','@Url.Content(Constants.UrlAction.Menu.Save)')">
+                        Save
+                    </button>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div style="display: none">
+        @{
+            await Html.RenderPartialAsync("_HiddenValue", Model);
+        }
+    </div>
+</form>
+
+@{
+    await Html.RenderPartialAsync("_DetailScriptsPartial", Model);
+}

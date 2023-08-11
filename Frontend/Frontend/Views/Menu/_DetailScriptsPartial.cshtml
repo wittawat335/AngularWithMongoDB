@@ -1,0 +1,52 @@
+﻿@using Frontend.Models.ViewModel.Menu;
+@using Frontend.Utilities;
+@model MenuViewModel;
+<script>
+    var MenuCode = '@Html.IdFor(x => x.menuDTO.MenuCode)';
+    var Name = '@Html.IdFor(x => x.menuDTO.Name)';
+    var Url = '@Html.IdFor(x => x.menuDTO.Url)';
+    var Level = '@Html.IdFor(x => x.menuDTO.Level)';
+    var Order = '@Html.IdFor(x => x.menuDTO.Order)';
+
+    $(document).ready(function () {
+        CheckAction();
+    });
+
+    function CheckAction() {
+        switch ('@Model.action') {
+            case '@Constants.Action.View':
+                SetReadOnlyByDiv('frmDetail', true);
+                break;
+            case '@Constants.Action.New':
+                setDefaultValue();
+                break;
+        }
+    }
+
+    function setDefaultValue() {
+        $('#@Html.IdFor(x => x.menuDTO.Icon)').val('#');
+        $('#@Html.IdFor(x => x.menuDTO.Url)').val('#');
+        $('#@Html.IdFor(x => x.menuDTO.Level)').val(1);
+        $('#@Html.IdFor(x => x.menuDTO.ParentCode)').val('#');
+    }
+
+    function FormValidate() {
+        var msg = '';
+        $(':input[type="text"]').css("border-color", "");
+
+        if (setValidateById(MenuCode)) {
+            msg = 'Please complete the information' + ' ' + 'MenuCode';
+        }
+        if (setValidateById(Name)) {
+            msg = 'Please complete the information' + ' ' + 'Name';
+        }
+        if (setValidateById(Level)) {
+            msg = 'Please complete the information' + ' ' + 'Level';
+        }
+        if (setValidateById(Order)) {
+            msg = 'Please complete the information' + ' ' + 'Order';
+        }
+
+        return msg;
+    }
+</script>

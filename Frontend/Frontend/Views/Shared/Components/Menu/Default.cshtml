@@ -1,0 +1,17 @@
+﻿@using Frontend.DTOs;
+@model List<MenuDTO>
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+        @foreach (var menu in Model)
+        {
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="@Url.Content("~" + menu.Url ?? "#")">
+                    <i class="@menu.Icon"></i>
+                    <span>@menu.Name</span>
+                </a>
+            </li>
+        }
+    </ul>
+
+</aside><!-- End Sidebar-->

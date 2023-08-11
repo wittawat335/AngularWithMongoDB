@@ -1,0 +1,113 @@
+﻿@using Frontend.DTOs;
+@using Frontend.Models.ViewModel.Menu;
+@using Frontend.Utilities;
+@model MenuViewModel;
+<script>
+    var urlDelete = '@Url.Content(Constants.UrlAction.Menu.Delete)';
+    $(document).ready(function () {
+        ClearDataTable("dtResult");
+        GetList();
+    });
+    function GetList() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content(Constants.UrlAction.Menu.GetList)',
+            dataType: "json",
+            data: {},
+            success: OnSuccess
+        })
+    }
+    function OnSuccess(response) {
+        console.log(response);
+        $('#dtResult').DataTable({
+            bDestroy: true,
+            bProcessing: true,
+            bLenghtChange: true,
+            lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            bfilter: true,
+            bSort: true,
+            bPaginate: true,
+            data: response.value,
+            columns: [
+                {
+                    data: 'MenuCode',
+                    render: function (data, type, row, meta) {
+                        return row.menuCode
+                    }
+                },
+                {
+                    data: 'Name',
+                    render: function (data, type, row, meta) {
+                        return row.name
+                    }
+                },
+                {
+                    data: 'Icon',
+                    render: function (data, type, row, meta) {
+                        if (row.icon === null) return "";
+                        return row.icon;
+                    }
+                },
+                {
+                    data: 'Url',
+                    render: function (data, type, row, meta) {
+                        return row.url
+                    }
+                },
+                {
+                    data: 'Level',
+                    render: function (data, type, row, meta) {
+                        return row.level
+                    }
+                },
+                {
+                    data: 'ParentCode',
+                    render: function (data, type, row, meta) {
+                        return row.parentCode
+                    }
+                },
+                {
+                    data: 'Order',
+                    render: function (data, type, row, meta) {
+                        return row.order
+                    }
+                },
+                {
+                    data: 'IsActive',
+                    render: function (data, type, row, meta) {
+                        switch (row.isActive) {
+                            case "A":
+                                return '<span class="badge bg-success">'
+                                    + '' + 'Active' + ''
+                                    + '</span>'
+                                break;
+                            case "I":
+                                return '<span class="badge bg-dark">'
+                                    + '' + 'InActive' + ''
+                                    + '</span> '
+                                break;
+                            default:
+                                return "";
+                                break;
+                        }
+                    }
+                },
+                {
+                    data: 'null',
+                    render: function (data, type, row, meta) {
+                        return '<a class="btn btn-info me-2" onclick=PopupDetail("' + row.id + '","View");>'
+                            + '<i class="bi bi-search"></i></a>'
+                            + '<a class="btn btn-warning me-2" onclick=PopupDetail("' + row.id + '","Edit");>'
+                            + '<i class="bi bi-pencil-fill"></i></a>'
+                            + '<a class="btn btn-danger" onclick=Delete("' + row.id + '","' + row.Name + '","' + urlDelete + '");>'
+                            + '<i class="bi bi-trash-fill"></a>'
+                    }
+                }
+            ]
+        });
+    }
+    function PopupDetail(id, action) {
+        var data = { "id": id, "action": action };
+        modalPOST(action + " " + "Menu", "Menu", "_Detail", data, 50);
+    };
+</script>

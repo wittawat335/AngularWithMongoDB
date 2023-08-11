@@ -8,7 +8,7 @@ namespace Demo.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class MenuController : ControllerBase
     {
         private readonly IMenuService _service;
@@ -17,27 +17,39 @@ namespace Demo.Api.Controllers
             _service = service;
         }
 
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _service.GetAll());
+        }
+
         [HttpGet("{userId}")]
         public IActionResult GetList(Guid userId)
         {
             return Ok(_service.GetList(userId));
         }
 
-        [Authorize(Roles = "Manager")]
+        [HttpGet("GetById")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            return Ok(await _service.GetByIdAsync(id));
+        }
+
+        //[Authorize(Roles = "Manager")]
         [HttpPost("Add")]
         public async Task<IActionResult> Add(MenuInput model)
         {
             return Ok(await _service.AddAsync(model));
         }
 
-        [Authorize(Roles = "Manager")]
+        //[Authorize(Roles = "Manager")]
         [HttpPost("AddRoleMenu")]
         public async Task<IActionResult> AddRoleMenu(RoleMenu model)
         {
             return Ok(await _service.AddRoleManuAsync(model));
         }
 
-        [Authorize(Roles = "Manager")]
+        //[Authorize(Roles = "Manager")]
         [HttpPut("Update")]
         public async Task<IActionResult> Update(MenuDTO model)
         {
@@ -45,7 +57,7 @@ namespace Demo.Api.Controllers
         }
 
         [Authorize(Roles = "Manager")]
-        [HttpDelete("Delete")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             return Ok(await _service.DeleteByIdAsync(id));
