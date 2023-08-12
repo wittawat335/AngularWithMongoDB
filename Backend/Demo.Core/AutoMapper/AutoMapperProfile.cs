@@ -39,7 +39,7 @@ namespace Demo.Core.AutoMapper
                 .ForMember(x => x.IsActive, opt => opt.MapFrom(origin => origin.IsActive == true ? "A" : "I"));
             //==========================================================================================================================================
             CreateMap<Products, ProductDTO>() //Output 
-               .ForMember(x => x.Price, opt => opt.MapFrom(origin => string.Format("{0:C}", origin.Price)))
+               .ForMember(x => x.Price, opt => opt.MapFrom(origin => string.Format("{0:N}\n", origin.Price)))
                .ForMember(x => x.IsActive, opt => opt.MapFrom(origin => origin.IsActive == true ? "A" : "I"))
                .ForMember(x => x.Id, opt => opt.MapFrom(origin => origin.Id.ToString()));
             //==========================================================================================================================================

@@ -6,13 +6,6 @@ using Demo.Domain.Models.Collections;
 using Demo.Domain.Models.ViewModels;
 using Demo.Domain.RepositoryContract;
 using Demo.Domain.Utilities;
-using MongoDB.Bson;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Demo.Core.Services
 {
@@ -44,7 +37,7 @@ namespace Demo.Core.Services
                                  CategoryId = c.Id.ToString(),
                                  CategoryName = c.Name,
                                  ProductName = p.ProductName,
-                                 Price = p.Price.ToString("0:N2"),
+                                 Price = p.Price,
                                  Stock = p.Stock,
                                  IsActive = p.IsActive == true ? "A" : "I",
                                  CreateBy = p.CreateBy,

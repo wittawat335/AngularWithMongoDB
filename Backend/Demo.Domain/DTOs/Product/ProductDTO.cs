@@ -14,7 +14,7 @@ namespace Demo.Domain.DTOs.Product
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string ProductName { get; set; }
-        public string Price { get; set; } ///รอทำ ถ้า error ปรับเป็น Decimal
+        public decimal Price { get; set; } ///รอทำ ถ้า error ปรับเป็น Decimal
         public int Stock { get; set; }
         public string IsActive { get; set; }
         public string CreateBy { get; set; }

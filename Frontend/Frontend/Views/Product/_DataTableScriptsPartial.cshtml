@@ -58,7 +58,8 @@
                 {
                     data: 'Stock',
                     render: function (data, type, row, meta) {
-                        return row.stock
+                        if (row.stock === null) return "";
+                        return commaSeparateNumber(row.stock);
                     }
                 },
                 {

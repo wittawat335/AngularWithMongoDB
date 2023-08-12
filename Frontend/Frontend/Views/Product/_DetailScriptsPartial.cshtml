@@ -15,7 +15,6 @@
         if ('@Model.action' == '@Constants.Action.View') {
             SetReadOnlyByDiv('frmDetail', true);
         }
-       
     }
 
     function FormValidate() {
@@ -23,17 +22,8 @@
         $(':input[type="text"]').css("border-color", "");
         $('#' + CategoryId).css("border-color", "")
 
-        if (setValidateById(ProductName)) {
-            msg = 'Please complete the information' + ' ' + 'ProductName';
-        }
-        if (setValidateById(CategoryId)) {
-            msg = 'Please complete the information' + ' ' + 'CategoryType';
-        }
-        if (setValidateById(Price)) {
-            msg = 'Please complete the information' + ' ' + 'Price';
-        }
-        if (setValidateById(Stock)) {
-            msg = 'Please complete the information' + ' ' + 'Stock';
+        if (setValidateById(ProductName) || setValidateById(CategoryId) || setValidateById(Price) || setValidateById(Stock)) {
+            msg = 'Please insert the information';
         }
 
         return msg;
