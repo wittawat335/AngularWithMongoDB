@@ -1,5 +1,4 @@
-﻿using Frontend.AutoMapper;
-using Frontend.Core.AppSettings;
+﻿using Frontend.Core.AppSettings;
 using Frontend.Core.Interfaces;
 using Frontend.Core.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,7 +10,6 @@ namespace Frontend.Core
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddSingleton<IAppSetting, AppSetting>();
-            services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddTransient(typeof(IBaseApiService<>), typeof(BaseApiService<>));
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ILoginService, LoginService>();

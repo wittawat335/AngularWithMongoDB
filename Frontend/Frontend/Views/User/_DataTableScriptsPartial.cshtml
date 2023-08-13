@@ -1,0 +1,104 @@
+﻿@using Frontend.DTOs;
+@using Frontend.Models.ViewModel.User;
+@using Frontend.Utilities;
+@model UserViewModel;
+<script>
+    var urlDelete = '@Url.Content(Constants.UrlAction.User.Delete)';
+
+    $(document).ready(function () {
+        ClearDataTable("dtResult");
+        GetList();
+    });
+    function GetList() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content(Constants.UrlAction.User.GetList)',
+            dataType: "json",
+            data: {
+               
+            },
+            success: OnSuccess
+        })
+    }
+    function OnSuccess(response) {
+        console.log(response);
+        $('#dtResult').DataTable({
+            bDestroy: true,
+            bProcessing: true,
+            bLenghtChange: true,
+            lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            bfilter: true,
+            bSort: true,
+            bPaginate: true,
+            data: response.value,
+            columns: [
+                {
+                    data: 'UserName',
+                    render: function (data, type, row, meta) {
+                        return row.userName
+                    }
+                },
+                {
+                    data: 'Email',
+                    render: function (data, type, row, meta) {
+                        return row.email
+                    }
+                },
+                {
+                    data: 'FullName',
+                    render: function (data, type, row, meta) {
+                        return row.fullName
+                    }
+                },
+                {
+                    data: 'Role',
+                    render: function (data, type, row, meta) {
+                        return row.role
+                    }
+                },
+                {
+                    data: 'CreatedOn',
+                    render: function (data, type, row, meta) {
+                        if (row.createdOn === null) return "";
+                        return moment(row.createdOn).format('DD/MM/YYYY');
+                    }
+                },
+                {
+                    data: 'IsActive',
+                    render: function (data, type, row, meta) {
+                        switch (row.isActive) {
+                            case "A":
+                                return '<span class="badge bg-success">'
+                                    + '' + 'Active' + ''
+                                    + '</span>'
+                                break;
+                            case "I":
+                                return '<span class="badge bg-dark">'
+                                    + '' + 'InActive' + ''
+                                    + '</span> '
+                                break;
+                            default:
+                                return "";
+                                break;
+                        }
+                    }
+                },
+                {
+                    data: 'null',
+                    render: function (data, type, row, meta) {
+                        return '<a class="btn btn-info me-2" onclick=PopupDetail("' + row.id + '","View");>'
+                            + '<i class="bi bi-search"></i></a>'
+                            + '<a class="btn btn-warning me-2" onclick=PopupDetail("' + row.id + '","Edit");>'
+                            + '<i class="bi bi-pencil-fill"></i></a>'
+                            + '<a class="btn btn-danger" onclick=Delete("' + row.id + '","' + row.userName + '","' + urlDelete + '");>'
+                            + '<i class="bi bi-trash-fill"></a>'
+                    }
+                }
+            ]
+        });
+    }
+    function PopupDetail(id, action) {
+        var data = { "id": id, "action": action };
+        modalPOST(action + " " + "User", "User", "_Detail", data, 50);
+    };
+</script>

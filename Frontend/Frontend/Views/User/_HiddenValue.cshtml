@@ -1,0 +1,13 @@
+﻿@using Frontend.Models.ViewModel.User;
+@using Frontend.Utilities;
+@{
+    var common = new Common();
+    var session = common.GetValueBySession();
+}
+@model UserViewModel
+@if (Model.action == Constants.Action.Edit)
+{
+    <input type="text" name="userDTO.Id" value='@Model.userDTO.Id' />
+}
+<input type="text" name="userDTO.CreateBy"value='@session.fullName' />
+<input type="text" name="action" value='@Model.action' />

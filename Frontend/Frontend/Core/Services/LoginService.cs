@@ -1,34 +1,28 @@
-﻿using AutoMapper;
-using Frontend.Core.AppSettings;
+﻿using Frontend.Core.AppSettings;
 using Frontend.Core.Interfaces;
-using Frontend.DTOs;
-using Frontend.Models.ViewModel;
 using Frontend.Models.ViewModel.Login;
 using Frontend.Utilities;
 using Newtonsoft.Json;
-using System.Text;
 
 namespace Frontend.Core.Services
 {
     public class LoginService : ILoginService
     {
         private readonly IAppSetting _config;
-        private readonly IBaseApiService<LoginResponse> _baseApiService;
+        private readonly IBaseApiService<LoginVIewModel> _baseApiService;
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IMapper _mapper;
 
-        public LoginService(IAppSetting config, IBaseApiService<LoginResponse> baseApiService, IHttpContextAccessor contextAccessor, IMapper mapper)
+        public LoginService(IAppSetting config, IBaseApiService<LoginVIewModel> baseApiService, IHttpContextAccessor contextAccessor)
         {
             _config = config;
-            _mapper = mapper;
             _baseApiService = baseApiService;
             _contextAccessor = contextAccessor;
         }
 
-        public async Task<Response<LoginResponse>> Login(LoginResponse requert)
+        public async Task<Response<LoginVIewModel>> Login(LoginVIewModel requert)
         {
             var urlApi = _config.BaseUrlApi + Constants.UrlApi.Login;
-            var response = new Response<LoginResponse>();
+            var response = new Response<LoginVIewModel>();
             try
             {
                 response = await _baseApiService.PostAsJsonAsync(urlApi, requert);
@@ -44,11 +38,10 @@ namespace Frontend.Core.Services
             return response;
         }
 
-        public void SetSession(LoginResponse response)
+        public void SetSession(LoginVIewModel response)
         {
-            var sessionModel = _mapper.Map<SessionDTO>(response);
-            string sessionString = JsonConvert.SerializeObject(sessionModel);
-            string tokenString = JsonConvert.SerializeObject(sessionModel.AccessToken);
+            string sessionString = JsonConvert.SerializeObject(response);
+            string tokenString = JsonConvert.SerializeObject(response.AccessToken);
             if (sessionString != null)
                 _contextAccessor.HttpContext.Session.SetString(Constants.SessionKey.sessionLogin, sessionString);
             if (tokenString != null)

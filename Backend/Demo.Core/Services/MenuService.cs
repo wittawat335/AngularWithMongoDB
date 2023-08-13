@@ -8,8 +8,10 @@ using Demo.Domain.Models.Collections;
 using Demo.Domain.RepositoryContract;
 using Demo.Domain.Utilities;
 using Microsoft.AspNetCore.Identity;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -20,13 +22,15 @@ namespace Demo.Core.Services
     public class MenuService : IMenuService
     {
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly IMongoRepository<RoleMenu> _roleMenuRepository;
         private readonly IMongoRepository<Menu> _menuRepository;
         private readonly IMapper _mapper;
 
-        public MenuService(UserManager<User> userManager, IMongoRepository<RoleMenu> roleMenuRepository, IMongoRepository<Menu> menuRepository, IMapper mapper)
+        public MenuService(UserManager<User> userManager, RoleManager<Role> roleManager, IMongoRepository<RoleMenu> roleMenuRepository, IMongoRepository<Menu> menuRepository, IMapper mapper)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _roleMenuRepository = roleMenuRepository;
             _menuRepository = menuRepository;
             _mapper = mapper;
@@ -126,13 +130,15 @@ namespace Demo.Core.Services
         public Response<List<MenuDTO>> GetList(Guid userId)
         {
             IQueryable<User> tbUser = _userManager.Users.Where(x => x.Id == userId);
+            IQueryable<Role> tbRole = _roleManager.Roles;
             IQueryable<RoleMenu> tbRoleMenu = _roleMenuRepository.AsQueryable();
             IQueryable<Menu> tbMenu = _menuRepository.AsQueryable();
             var response = new Response<List<MenuDTO>>();
             try
             {
+
                 IQueryable<Menu> tbResult = (from u in tbUser
-                                             join rm in tbRoleMenu on u.RoleCode equals rm.RoleCode
+                                             join rm in tbRoleMenu on u.Role equals rm.Role
                                              join m in tbMenu on rm.MenuCode equals m.MenuCode
                                              select m).AsQueryable();
 

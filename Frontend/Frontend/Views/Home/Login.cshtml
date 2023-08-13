@@ -1,5 +1,5 @@
 ﻿@using Frontend.Models.ViewModel.Login;
-@model LoginRequest;
+@model LoginVIewModel;
 @{
     Layout = null;
 }
@@ -41,8 +41,8 @@
                 </svg>
                 <div class="form">
                     <form>
-                        <label asp-for="Email">User</label>
-                        <input asp-for="Email"
+                        <label asp-for="UserName">User</label>
+                        <input asp-for="UserName"
                                type="text"
                                id="userLogin">
                         <label asp-for="Password">Password</label>

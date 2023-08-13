@@ -1,4 +1,5 @@
-﻿using Demo.Core.Interfaces;
+﻿using Amazon.Runtime.Internal;
+using Demo.Core.Interfaces;
 using Demo.Domain.DTOs.User;
 using Demo.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -24,10 +25,26 @@ namespace Demo.Api.Controllers
         public IActionResult Index()
         {
             var response = new ResponseStatus();
-            response.Message = _appSettings.TestEnv;
-            response.IsSuccess = true;
 
             return Ok(response);
+        }
+
+        [HttpGet("GetList")]
+        public IActionResult GetList()
+        {
+            return Ok(_service.GetList());
+        }
+
+        [HttpGet("GetRoleList")]
+        public IActionResult GetRoleList()
+        {
+            return Ok(_service.GetRoleList());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            return Ok(await _service.GetByIdAsync(id));
         }
 
         [AllowAnonymous]
@@ -42,6 +59,13 @@ namespace Demo.Api.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             return Ok(await _service.RegisterAsync(request));
+        }
+
+        [HttpPut]
+        [Route("UpdateUser")]
+        public async Task<IActionResult> UpdateUser([FromBody] UserDTO request)
+        {
+            return Ok(await _service.UpdateUser(request));
         }
 
         //[Authorize(Roles = "Manager")]

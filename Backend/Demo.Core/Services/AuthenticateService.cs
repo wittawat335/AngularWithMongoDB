@@ -1,7 +1,11 @@
-﻿using Demo.Core.Interfaces;
+﻿using AutoMapper;
+using Demo.Core.Interfaces;
+using Demo.Domain.DTOs.Menu;
+using Demo.Domain.DTOs.Product;
 using Demo.Domain.DTOs.User;
 using Demo.Domain.Models;
 using Demo.Domain.Models.Collections;
+using Demo.Domain.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -21,14 +25,33 @@ namespace Demo.Core.Services
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IAppSettings _appConfig;
+        private readonly IMapper _mapper;
 
-        public AuthenticateService(UserManager<User> userManager, RoleManager<Role> roleManager, IAppSettings appConfig)
+        public AuthenticateService(UserManager<User> userManager, RoleManager<Role> roleManager, IAppSettings appConfig, IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _appConfig = appConfig;
+            _mapper = mapper;
         }
+        public async Task<Response<UserDTO>> GetByIdAsync(string id)
+        {
+            var response = new Response<UserDTO>();
+            try
+            {
+                response.Value = _mapper.Map<UserDTO>(await _userManager.FindByIdAsync(id));
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.UpdateComplete;
 
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Exception Occurs : " + ex.Message;
+            }
+
+            return response;
+        }
         public async Task<ResponseStatus> CreateRoleAsync(CreateRoleRequest request)
         {
             var response = new ResponseStatus();
@@ -53,7 +76,40 @@ namespace Demo.Core.Services
 
             return response;
         }
+        public Response<List<UserDTO>> GetList()
+        {
+            var response = new Response<List<UserDTO>>();
+            IQueryable<User> tbUser = _userManager.Users.AsQueryable();
+            try
+            {
+                response.Value = _mapper.Map<List<UserDTO>>(tbUser);
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.GetList;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
 
+            return response;
+        }
+        public Response<List<RoleDTO>> GetRoleList()
+        {
+            var response = new Response<List<RoleDTO>>();
+            IQueryable<Role> tb = _roleManager.Roles.AsQueryable();
+            try
+            {
+                response.Value = _mapper.Map<List<RoleDTO>>(tb);
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.GetList;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
         public async Task<Response<LoginResponse>> LoginAsync(LoginRequest request)
         {
             var response = new Response<LoginResponse>();
@@ -61,7 +117,7 @@ namespace Demo.Core.Services
             try
             {
                 //var email = request.Email + "@example.com";
-                var user = await _userManager.FindByEmailAsync(request.Email);
+                var user = await _userManager.FindByNameAsync(request.UserName);
                 if (user == null)
                 {
                     response.IsSuccess = false;
@@ -125,13 +181,12 @@ namespace Demo.Core.Services
 
             return response;
         }
-
         public async Task<ResponseStatus> RegisterAsync(RegisterRequest request)
         {
             var response = new ResponseStatus();
             try
             {
-                var userExists = await _userManager.FindByEmailAsync(request.Email);
+                var userExists = await _userManager.FindByNameAsync(request.UserName);
                 if (userExists != null)
                 {
                     response.IsSuccess = false;
@@ -144,8 +199,9 @@ namespace Demo.Core.Services
                         FullName = request.FullName,
                         Email = request.Email,
                         ConcurrencyStamp = Guid.NewGuid().ToString(),
-                        UserName = request.Username,
-                        RoleCode = request.RoleCode
+                        UserName = request.UserName,
+                        Role = request.Role,
+                        IsActive = true
                     };
                     var createUserResult = await _userManager.CreateAsync(userExists, request.Password);
                     if (!createUserResult.Succeeded)
@@ -157,7 +213,7 @@ namespace Demo.Core.Services
                     {
                         //user is created...
                         //then add user to a role...
-                        var addUserToRoleResult = await _userManager.AddToRoleAsync(userExists, request.RoleName);
+                        var addUserToRoleResult = await _userManager.AddToRoleAsync(userExists, request.Role);
                         if (!addUserToRoleResult.Succeeded)
                         {
                             response.Message = $"Create user succeeded but could not add user to role {addUserToRoleResult?.Errors?.First()?.Description}";
@@ -175,6 +231,25 @@ namespace Demo.Core.Services
             {
                 response.Message = ex.Message;
                 response.IsSuccess = false;
+            }
+
+            return response;
+        }
+        public async Task<ResponseStatus> UpdateUser(UserDTO model)
+        {
+            var response = new ResponseStatus();
+            try
+            {
+                var findId = await _userManager.FindByIdAsync(model.Id);
+
+                await _userManager.UpdateAsync(_mapper.Map(model, findId));
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.UpdateComplete;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Exception Occurs : " + ex.Message;
             }
 
             return response;

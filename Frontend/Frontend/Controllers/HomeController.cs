@@ -51,11 +51,10 @@ namespace Frontend.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginResponse request)
+        public async Task<IActionResult> Login(LoginVIewModel request)
         {
             return new JsonResult(await _service.Login(request));
         }
-
 
         public IActionResult Privacy()
         {

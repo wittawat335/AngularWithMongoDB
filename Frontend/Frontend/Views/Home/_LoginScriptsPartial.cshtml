@@ -1,6 +1,6 @@
 ﻿@using Frontend.Models.ViewModel.Login;
 @using Frontend.Utilities;
-@model LoginRequest;
+@model LoginVIewModel;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
         integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
         crossorigin="anonymous"
@@ -13,7 +13,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/js/pages/layout/sweetalertcustom.js"></script>
 <script>
-    var userLogin = '@Html.IdFor(x => x.Email)';
+    var userLogin = '@Html.IdFor(x => x.UserName)';
     var password = '@Html.IdFor(x => x.Password)';
 
     function FormValidate() {
@@ -38,7 +38,7 @@
         else {
             var url = '@Url.Content(Constants.UrlAction.Home.Login)';
             var data = {
-                "Email": $('#userLogin').val(),
+                "UserName": $('#userLogin').val(),
                 "Password": $('#password').val()
             };
             $.post(url, data, function (response) {

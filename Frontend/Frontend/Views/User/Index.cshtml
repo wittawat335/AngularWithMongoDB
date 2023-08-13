@@ -1,0 +1,96 @@
+﻿@using Frontend.DTOs;
+@using Frontend.Models.ViewModel.User;
+@using Frontend.Utilities;
+@model UserViewModel;
+@{
+    ViewData["Title"] = "Index";
+    var common = new Common();
+}
+
+<div class="pagetitle">
+    <h1>Product</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item">User</li>
+            <li class="breadcrumb-item active">Index</li>
+        </ol>
+    </nav>
+</div>
+@* <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search Filter</h5>
+        <form method="post" class="row g-3">
+            <div class="col-md-4">
+                <label for="txtCode" class="form-label">Product</label>
+                <select class="form-control" id="txtProduct" name="txtProduct" onchange="GetList()"></select>
+            </div>
+            <div class="col-md-4">
+                <label for="ddlMasterType" class="form-label">Category</label>
+                @Html.DropDownList("ddlCategory", new SelectList(Model.listCategory, Constants.CategoryDDL.Code, Constants.CategoryDDL.Text),
+                @Constants.SelectOption.SelectAll, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4">
+                <label for="ddlStatus" class="form-label">Status</label>
+                @Html.DropDownList("ddlStatus", new SelectList(common.GetListStatus(), Constants.StatusListDDl.Code, Constants.StatusListDDl.Text),
+                @Constants.SelectOption.SelectAll, new { @class = "form-control" })
+            </div>
+            <div class="text-center">
+                <button type="button"
+                        id="btnSearch"
+                        onclick="GetList()"
+                        class="btn btn-primary">
+                    Search
+                </button>
+                <button type="reset"
+                        class="btn btn-secondary"
+                        onclick="ClearDataTable('dtResult')">
+                    Reset
+                </button>
+            </div>
+        </form>
+    </div>
+</div> *@
+<div class="row" id="dvTable">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h5 class="card-title ">Search Result</h5>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1">
+                        <a class="btn btn-success me-0 mt-3"
+                           onclick=PopupDetail('',"@Constants.Action.New")>
+                            <i class="bi bi-plus-lg me-1"></i>
+                            @Constants.Action.New
+                        </a>
+                    </div>
+                </div>
+                <table id="dtResult" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">UserName</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">FullName</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">CreatedOn</th>
+                            <th scope="col">IsActive</th>
+                            <th scope="col" style="width:15%"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_Data">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_DataTableScriptsPartial", Model);
+    }
+    <script src="~/js/pages/product/select2.js"></script>
+}

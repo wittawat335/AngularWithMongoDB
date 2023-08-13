@@ -1,0 +1,29 @@
+﻿@using Frontend.Models.ViewModel.User;
+@using Frontend.Utilities;
+@model UserViewModel;
+<script>
+    var UserName = '@Html.IdFor(x => x.userDTO.UserName)';
+    var FullName = '@Html.IdFor(x => x.userDTO.FullName)';
+    var Email = '@Html.IdFor(x => x.userDTO.Email)';
+
+    $(document).ready(function () {
+        CheckAction();
+    });
+
+    function CheckAction() {
+        if ('@Model.action' == '@Constants.Action.View') {
+            SetReadOnlyByDiv('frmDetail', true);
+        }
+    }
+
+    function FormValidate() {
+        var msg = '';
+        $(':input[type="text"]').css("border-color", "");
+
+        if (setValidateById(UserName) || setValidateById(FullName) || setValidateById(Email) ) {
+            msg = 'Please insert the information';
+        }
+
+        return msg;
+    }
+</script>

@@ -1,0 +1,76 @@
+﻿@using Frontend.Models.ViewModel.User;
+@using Frontend.Utilities;
+@model UserViewModel;
+@{
+    var common = new Common();
+}
+<form id="frmDetail" role="form" method="post">
+    <div class="form-group mt-2">
+        <label asp-for="userDTO.UserName" class="form-label"></label>
+        <input asp-for="userDTO.UserName" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="userDTO.Password" class="form-label"></label>
+        <input asp-for="userDTO.Password" class="form-control" type="password" maxlength="20" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="userDTO.ConfirmPassword" class="form-label"></label>
+        <input asp-for="userDTO.ConfirmPassword" class="form-control" type="password" maxlength="20" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="userDTO.Role" class="form-label"></label>
+        <select asp-for="userDTO.Role"
+                class="form-control"
+                asp-items="@(new SelectList (Model.listRole, Constants.CategoryDDL.Text, Constants.CategoryDDL.Text))">
+            <option disabled selected>@Constants.SelectOption.SelectOne</option>
+        </select>
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="userDTO.Email" class="form-label"></label>
+        <input asp-for="userDTO.Email" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group mt-2">
+        <label asp-for="userDTO.FullName" class="form-label"></label>
+        <input asp-for="userDTO.FullName" class="form-control" type="text" maxlength="10" />
+    </div>
+    <div class="form-group mt-2 mb-3">
+        <label asp-for="userDTO.IsActive" class="form-label"></label>
+        <select asp-for="userDTO.IsActive"
+                class="form-control"
+                asp-items="@(new SelectList(common.GetListStatus(), Constants.StatusListDDl.Code, Constants.StatusListDDl.Text))">
+        </select>
+    </div>
+    <div class="row">
+        <hr>
+        <div class="col-md-12">
+            <div class="float-end">
+                <button id="btnClose"
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+                @if (Model.action == Constants.Action.New || Model.action == Constants.Action.Edit)
+                {
+                    <button id="btnSave"
+                            type="button"
+                            class="btn btn-primary"
+                            onclick="Save('frmDetail','@Url.Content(Constants.UrlAction.User.Save)')">
+                        Save
+                    </button>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div style="display: none">
+        @{
+            await Html.RenderPartialAsync("_HiddenValue", Model);
+        }
+    </div>
+</form>
+
+@{
+    await Html.RenderPartialAsync("_DetailScriptsPartial", Model);
+}
+

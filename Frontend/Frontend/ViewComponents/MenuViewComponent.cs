@@ -22,10 +22,8 @@ namespace Frontend.ViewComponents
         {
             var menu = new Response<List<MenuDTO>>();
             var loginInfo = common.GetValueBySession();
-            if (loginInfo != null)
-            {
+            if (loginInfo.UserId != "")
                 menu = await _baseApiService.GetListAsync(_config.BaseUrlApi + string.Format("menu/{0}", loginInfo.UserId));
-            }
 
             return View(menu.Value);
         }

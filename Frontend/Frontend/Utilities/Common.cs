@@ -1,4 +1,4 @@
-﻿using Frontend.DTOs;
+﻿using Frontend.Models.ViewModel.Login;
 using Newtonsoft.Json;
 
 namespace Frontend.Utilities
@@ -6,13 +6,13 @@ namespace Frontend.Utilities
     public class Common
     {
         IHttpContextAccessor _contxt = new HttpContextAccessor();
-        public SessionDTO GetValueBySession()
+        public LoginVIewModel GetValueBySession()
         {
-            var session = new SessionDTO();
+            var session = new LoginVIewModel();
             string sessionString = _contxt.HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
 
             if (sessionString != null)
-                session = JsonConvert.DeserializeObject<SessionDTO>(sessionString);
+                session = JsonConvert.DeserializeObject<LoginVIewModel>(sessionString);
 
             return session;
         }
