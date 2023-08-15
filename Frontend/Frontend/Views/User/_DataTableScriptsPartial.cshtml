@@ -57,13 +57,6 @@
                     }
                 },
                 {
-                    data: 'CreatedOn',
-                    render: function (data, type, row, meta) {
-                        if (row.createdOn === null) return "";
-                        return moment(row.createdOn).format('DD/MM/YYYY');
-                    }
-                },
-                {
                     data: 'IsActive',
                     render: function (data, type, row, meta) {
                         switch (row.isActive) {

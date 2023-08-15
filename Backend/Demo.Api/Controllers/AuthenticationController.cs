@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController : ControllerBase
@@ -66,6 +67,12 @@ namespace Demo.Api.Controllers
         public async Task<IActionResult> UpdateUser([FromBody] UserDTO request)
         {
             return Ok(await _service.UpdateUser(request));
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            return Ok(await _service.DeleteUser(id));
         }
 
         //[Authorize(Roles = "Manager")]

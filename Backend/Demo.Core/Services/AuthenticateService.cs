@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using Demo.Core.Interfaces;
-using Demo.Domain.DTOs.Menu;
-using Demo.Domain.DTOs.Product;
 using Demo.Domain.DTOs.User;
 using Demo.Domain.Models;
 using Demo.Domain.Models.Collections;
 using Demo.Domain.Utilities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -238,13 +235,57 @@ namespace Demo.Core.Services
         public async Task<ResponseStatus> UpdateUser(UserDTO model)
         {
             var response = new ResponseStatus();
+            var findId = new User();
             try
             {
-                var findId = await _userManager.FindByIdAsync(model.Id);
+                findId = await _userManager.FindByIdAsync(model.Id);
+                if (findId != null)
+                {
+                    if (findId.Role != model.Role)
+                    {
+                        foreach (var item in findId.Roles.ToList())
+                        {
+                            findId.Roles.Remove(item);
+                        }
+                        await _userManager.AddToRoleAsync(findId, model.Role);
+                    }
 
-                await _userManager.UpdateAsync(_mapper.Map(model, findId));
+                    findId.FullName = model.FullName;
+                    findId.UserName = model.UserName;
+                    findId.Email = model.Email;
+                    findId.Role = model.Role;
+                    findId.IsActive = model.IsActive == "A" ? true : false;
+
+                    await _userManager.UpdateAsync(findId);
+                    //await _userManager.UpdateAsync(_mapper.Map(model, findId));
+                    response.IsSuccess = Constants.StatusData.True;
+                    response.Message = Constants.Msg.UpdateComplete;
+                }
+                else
+                    response.Message = "User is Not Found";
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Exception Occurs : " + ex.Message;
+            }
+
+            return response;
+        }
+        public async Task<ResponseStatus> DeleteUser(string id)
+        {
+            var response = new ResponseStatus();
+            try
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                if (user != null)
+                    await _userManager.DeleteAsync(user);
+                else
+                    response.Message = "User is Not Found";
+
                 response.IsSuccess = Constants.StatusData.True;
-                response.Message = Constants.Msg.UpdateComplete;
+                response.Message = Constants.Msg.DeleteComplete;
             }
             catch (Exception ex)
             {

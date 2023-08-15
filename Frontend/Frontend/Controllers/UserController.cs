@@ -82,10 +82,10 @@ namespace Frontend.Controllers
             return new JsonResult(response);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(string id)
-        //{
-        //    return new JsonResult(await _baseApiService.DeleteAsync(_config.BaseUrlApi + string.Format("Product/{0}", id)));
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            return new JsonResult(await _baseApiService.DeleteAsync(_config.BaseUrlApi + string.Format("Authentication/{0}", id)));
+        }
     }
 }

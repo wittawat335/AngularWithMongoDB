@@ -14,6 +14,6 @@ namespace Demo.Domain.DTOs.User
         public string FullName { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
         public string IsActive { get; set; }
-        public DateTime CreatedOn { get; set; }
+        //public DateTime CreatedOn { get; set; }
     }
 }

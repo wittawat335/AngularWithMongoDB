@@ -12,5 +12,6 @@ namespace Demo.Core.Interfaces
         Task<ResponseStatus> RegisterAsync(RegisterRequest request);
         Task<ResponseStatus> CreateRoleAsync(CreateRoleRequest request);
         Task<ResponseStatus> UpdateUser(UserDTO model);
+        Task<ResponseStatus> DeleteUser(string id);
     }
 }

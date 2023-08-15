@@ -65,7 +65,6 @@ namespace Demo.Core.Services
 
             return response;
         }
-
         public async Task<Response<ProductDTO>> GetByIdAsync(string id)
         {
             var response = new Response<ProductDTO>();
@@ -84,21 +83,6 @@ namespace Demo.Core.Services
 
             return response;
         }
-
-        //public async Task<List<ProductDTO>> GetListByName(string query)
-        //{
-        //    var response = new List<ProductDTO>();
-        //    try
-        //    {
-        //        var list = GetAllAsync(null);
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //    return list.;
-        //}
-
         public Task<Response<ProductDTO>> GetOneAsync(string code)
         {
             throw new NotImplementedException();
@@ -157,7 +141,6 @@ namespace Demo.Core.Services
 
             return response;
         }
-
         public Task<ResponseStatus> DeleteListAsyncByCreateBy(string text)
         {
             throw new NotImplementedException();

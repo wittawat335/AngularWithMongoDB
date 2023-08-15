@@ -15,6 +15,6 @@ namespace Frontend.DTOs
         [Required, DataType(DataType.Password), Compare(nameof(Password), ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; } = string.Empty;
         public string IsActive { get; set; } = string.Empty;
-        public DateTime CreatedOn { get; set; }
+        //public DateTime CreatedOn { get; set; }
     }
 }
