@@ -30,6 +30,7 @@ namespace Demo.Api.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpGet("GetList")]
         public IActionResult GetList()
         {
@@ -42,6 +43,7 @@ namespace Demo.Api.Controllers
             return Ok(_service.GetRoleList());
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -55,6 +57,7 @@ namespace Demo.Api.Controllers
             return Ok(await _service.LoginAsync(request));
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
@@ -62,6 +65,7 @@ namespace Demo.Api.Controllers
             return Ok(await _service.RegisterAsync(request));
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpPut]
         [Route("UpdateUser")]
         public async Task<IActionResult> UpdateUser([FromBody] UserDTO request)
@@ -69,13 +73,14 @@ namespace Demo.Api.Controllers
             return Ok(await _service.UpdateUser(request));
         }
 
+        [Authorize(Roles = "Manager")]
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             return Ok(await _service.DeleteUser(id));
         }
 
-        //[Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("CreateRole")]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleRequest request)

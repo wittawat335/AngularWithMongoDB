@@ -27,7 +27,12 @@ namespace Demo.Core.Services
         private readonly IMongoRepository<Menu> _menuRepository;
         private readonly IMapper _mapper;
 
-        public MenuService(UserManager<User> userManager, RoleManager<Role> roleManager, IMongoRepository<RoleMenu> roleMenuRepository, IMongoRepository<Menu> menuRepository, IMapper mapper)
+        public MenuService(
+            UserManager<User> userManager,
+            RoleManager<Role> roleManager,
+            IMongoRepository<RoleMenu> roleMenuRepository,
+            IMongoRepository<Menu> menuRepository,
+            IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -35,7 +40,6 @@ namespace Demo.Core.Services
             _menuRepository = menuRepository;
             _mapper = mapper;
         }
-
         public async Task<Response<List<MenuDTO>>> GetAll()
         {
             var response = new Response<List<MenuDTO>>();
@@ -52,7 +56,34 @@ namespace Demo.Core.Services
 
             return response;
         }
+        public async Task<Response<List<RoleMenuDTO>>> GetAllRoleMenu(string role)
+        {
+            IQueryable<RoleMenu> tbRoleMenu = _roleMenuRepository.AsQueryable();
+            IQueryable<Menu> tbMenu = _menuRepository.AsQueryable();
+            var response = new Response<List<RoleMenuDTO>>();
+            try
+            {
+                IQueryable<RoleMenuDTO> tbResult = (from r in tbRoleMenu.Where(x => x.Role == role)
+                                                    join m in tbMenu on r.MenuCode equals m.MenuCode
+                                                    select new RoleMenuDTO
+                                                    {
+                                                        Id = r.Id.ToString(),
+                                                        Role = r.Role,
+                                                        MenuCode = r.MenuCode,
+                                                        MenuName = m.Name
+                                                    }).AsQueryable();
 
+                response.Value = tbResult.ToList();
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.GetList;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
         public async Task<Response<MenuDTO>> GetByIdAsync(string id)
         {
             var response = new Response<MenuDTO>();
@@ -71,7 +102,6 @@ namespace Demo.Core.Services
 
             return response;
         }
-
         public async Task<ResponseStatus> AddAsync(MenuInput model)
         {
             var response = new ResponseStatus();
@@ -108,7 +138,6 @@ namespace Demo.Core.Services
 
             return response;
         }
-
         public async Task<ResponseStatus> DeleteByIdAsync(string id)
         {
             var response = new ResponseStatus();
@@ -126,7 +155,6 @@ namespace Demo.Core.Services
 
             return response;
         }
-
         public Response<List<MenuDTO>> GetList(Guid userId)
         {
             IQueryable<User> tbUser = _userManager.Users.Where(x => x.Id == userId);
@@ -153,13 +181,30 @@ namespace Demo.Core.Services
 
             return response;
         }
-
         public async Task<ResponseStatus> AddRoleManuAsync(RoleMenu model)
         {
             var response = new ResponseStatus();
             try
             {
                 await _roleMenuRepository.InsertOneAsync(model);
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.InsertComplete;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Exception Occurs : " + ex.Message;
+            }
+
+            return response;
+        }
+        public async Task<Response<string>> GetMenuNameByCode(string code)
+        {
+            var response = new Response<string>();
+            try
+            {
+                var value = await _menuRepository.FindOneAsync(x => x.MenuCode == code);
+                response.Value = value.Name;
                 response.IsSuccess = Constants.StatusData.True;
                 response.Message = Constants.Msg.InsertComplete;
             }

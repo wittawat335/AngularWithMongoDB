@@ -7,6 +7,7 @@ namespace Frontend.Core.Interfaces
     public interface IMenuService
     {
         Task<MenuViewModel> Detail(string id, string action);
+        Task<string> GetMenuNameByCode(string code);
         Task<ResponseStatus> Save(MenuViewModel model);
     }
 }

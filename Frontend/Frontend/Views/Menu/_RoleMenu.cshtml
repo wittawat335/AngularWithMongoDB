@@ -1,0 +1,55 @@
+﻿@using Frontend.Core.Interfaces;
+@using Frontend.DTOs;
+@using Frontend.Models.ViewModel.Menu;
+@using Frontend.Utilities;
+@inject IMenuService _service
+@model MenuViewModel
+<div class="card">
+    <div class="card-body">
+        <form method="post" class="row g-3">
+            <div class="mt-3">
+                <label for="ddlRole" class="form-label">Role</label>
+                <select id="ddlRole" class="form-control"
+                        asp-items="@(new SelectList(Model.listRole, "RoleCode", "Name"))">
+                    <option disabled selected>@Constants.SelectOption.SelectOne</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row" id="dvShowListRoleMenu" style="display:none">
+    <partial name="_ShowListRoleMenu.cshtml" model="@Model.listRoleMenu" />
+</div>
+<style>
+    .modal {
+        --bs-modal-width: 30%;
+    }
+</style>
+<script>
+    $(function () {
+        $("#ddlRole").change(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Menu/GetListRoleMenuByRole",
+                data: {
+                    "role": $('#ddlRole Option:Selected').text()
+                },
+                success: function (response) {
+                    $("#dvShowListRoleMenu").html("");
+                    $("#dvShowListRoleMenu").html(response);
+                    $("#dvShowListRoleMenu").fadeIn();
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    });
+    function PopupNew() {
+        var data = {};
+        modalPOSTLv2("Add Role Menu", "Menu", "_AddRoleMenu", data, 20);
+    }
+</script>
+@* @{
+    await Html.RenderPartialAsync("_RoleMenuScript", Model);
+} *@

@@ -3,19 +3,25 @@ using Frontend.Core.Interfaces;
 using Frontend.DTOs;
 using Frontend.Models.ViewModel.Menu;
 using Frontend.Utilities;
+using System.Reflection;
 
 namespace Frontend.Core.Services
 {
     public class MenuService : IMenuService
     {
         private readonly IBaseApiService<MenuDTO> _baseApiService;
+        private readonly IBaseApiService<string> _baseService;
         private readonly IAppSetting _config;
         HttpClientHandler _httpClientHandler = new HttpClientHandler();
         Common common = new Common();
 
-        public MenuService(IBaseApiService<MenuDTO> baseApiService, IAppSetting config)
+        public MenuService(
+            IBaseApiService<MenuDTO> baseApiService,
+            IBaseApiService<string> baseService,
+            IAppSetting config)
         {
             _baseApiService = baseApiService;
+            _baseService = baseService;
             _config = config;
             _httpClientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         }
@@ -39,6 +45,21 @@ namespace Frontend.Core.Services
             }
 
             return model;
+        }
+
+        public async Task<string> GetMenuNameByCode(string code)
+        {
+            var response = new Response<string>();
+            var path = _config.BaseUrlApi + string.Format("Menu/GetMenuNameByCode?code={0}", code);
+            try
+            {
+                response = await _baseService.GetAsyncById(path);
+            }
+            catch
+            {
+                throw;
+            }
+            return response.Value;
         }
 
         public async Task<ResponseStatus> Save(MenuViewModel model)

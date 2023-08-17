@@ -1,0 +1,56 @@
+﻿@using Frontend.Models.ViewModel.Menu;
+@using Frontend.Utilities;
+@model MenuViewModel;
+@{
+    var common = new Common();
+}
+<form id="frmDetail" role="form" method="post">
+    <div class="form-group mt-2">
+        <label asp-for="roleMenuDTO.Role" class="form-label"></label>
+        <select asp-for="roleMenuDTO.Role" class="form-control" asp-items="@(new SelectList (Model.listRole, "Name", "Name"))">
+            <option disabled selected>@Constants.SelectOption.SelectOne</option>
+        </select>
+    </div>
+    <div class="form-group mt-2 mb-3">
+        <label asp-for="roleMenuDTO.MenuCode" class="form-label"></label>
+        <select asp-for="roleMenuDTO.MenuCode" class="form-control" 
+        asp-items="@(new SelectList (Model.listMenu, "MenuCode", "Name"))">
+            <option disabled selected>@Constants.SelectOption.SelectOne</option>
+        </select>
+    </div>
+    <div class="row">
+        <hr>
+        <div class="col-md-12">
+            <div class="float-end">
+                <button id="btnClose"
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+                @if (Model.action == Constants.Action.New || Model.action == Constants.Action.Edit)
+                {
+                    <button id="btnSave"
+                            type="button"
+                            class="btn btn-primary"
+                            onclick="Save('frmDetail','@Url.Content(Constants.UrlAction.Menu.Save)')">
+                        Save
+                    </button>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div style="display: none">
+       @*  @{
+            await Html.RenderPartialAsync("_HiddenValue", Model);
+        } *@
+    </div>
+</form>
+<style>
+    #modalDialogLv2 {
+        --bs-modal-width: 20%;
+    }
+</style>
+
+

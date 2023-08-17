@@ -23,6 +23,12 @@ namespace Demo.Api.Controllers
             return Ok(await _service.GetAll());
         }
 
+        [HttpGet("GetListRoleMenu")]
+        public async Task<IActionResult> GetListRoleMenu(string role)
+        {
+            return Ok(await _service.GetAllRoleMenu(role));
+        }
+
         [HttpGet("{userId}")]
         public IActionResult GetList(Guid userId)
         {
@@ -35,7 +41,13 @@ namespace Demo.Api.Controllers
             return Ok(await _service.GetByIdAsync(id));
         }
 
-        //[Authorize(Roles = "Manager")]
+        [HttpGet("GetMenuNameByCode")]
+        public async Task<IActionResult> GetMenuNameByCode(string code)
+        {
+            return Ok(await _service.GetMenuNameByCode(code));
+        }
+
+
         [HttpPost("Add")]
         public async Task<IActionResult> Add(MenuInput model)
         {
@@ -49,14 +61,14 @@ namespace Demo.Api.Controllers
             return Ok(await _service.AddRoleManuAsync(model));
         }
 
-        //[Authorize(Roles = "Manager")]
+
         [HttpPut("Update")]
         public async Task<IActionResult> Update(MenuDTO model)
         {
             return Ok(await _service.UpdateAsync(model));
         }
 
-        [Authorize(Roles = "Manager")]
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {

@@ -1,0 +1,41 @@
+﻿@using Frontend.DTOs;
+@using Frontend.Models.ViewModel.Menu;
+@model List<RoleMenuDTO>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="float-end">
+                <a class="btn btn-warning mt-3" onclick="PopupNew()">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    Add Menu To Role
+                </a>
+            </div>
+            <table id="tbdSearh" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Role</th>
+                        <th scope="col">Menu</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody id="tbdResult">
+                    @if (Model.Count > 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Role</td>
+                                <td>@item.MenuName</td>
+                                <td>
+                                    <a class="btn btn-danger me-2" onclick="">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

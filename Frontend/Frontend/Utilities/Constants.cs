@@ -38,8 +38,11 @@ namespace Frontend.Utilities
             public struct Menu
             {
                 public const string GetList = "~/Menu/GetList";
+                public const string GetListRoleMenu = "~/Menu/GetListRoleMenu";
                 public const string Save = "~/Menu/Save";
+                public const string SaveRoleMenu = "~/Menu/SaveRoleMenu";
                 public const string Delete = "~/Menu/Delete";
+                public const string DeleteRoleMenu = "~/Menu/DeleteRoleMenu";
             }
             public struct User
             {

@@ -43,9 +43,10 @@ namespace Demo.Core.AutoMapper
 
             CreateMap<UserDTO, RegisterRequest>()
               .ForMember(x => x.IsActive, opt => opt.MapFrom(origin => origin.IsActive == "A" ? true : false));
-
-            #endregion
             //==========================================================================================================================================
+            CreateMap<RoleMenuInput, RoleMenu>(); //New;
+            CreateMap<RoleMenuDTO, RoleMenuInput>();
+            #endregion
 
             #region Output
             CreateMap<Menu, MenuDTO>()
@@ -64,6 +65,9 @@ namespace Demo.Core.AutoMapper
             .ForMember(x => x.IsActive, opt => opt.MapFrom(origin => origin.IsActive == true ? "A" : "I"))
             .ForMember(x => x.Id, opt => opt.MapFrom(origin => origin.Id.ToString()));
             //==========================================================================================================================================
+            CreateMap<RoleMenu, RoleMenuDTO>() //Output 
+            .ForMember(x => x.Id, opt => opt.MapFrom(origin => origin.Id.ToString()));
+            //==========================================================================================================================================
             CreateMap<Category, CategoryDTO>() //Output 
               .ForMember(x => x.Id, opt => opt.MapFrom(origin => origin.Id.ToString()));
 
@@ -72,10 +76,6 @@ namespace Demo.Core.AutoMapper
              .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
             //==========================================================================================================================================
             #endregion
-
-
-
-
         }
     }
 }

@@ -87,10 +87,24 @@ function modalPOST(caption, controller, action, data, isFull, med) {
     });
 }
 
+function modalPOSTLv2(caption, controller, action, data, isFull) {
+    var url = '/' + controller + '/' + action;
+    $.post(url, data, function (result) {
+        $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-body').html(result);
+        showModalLv2(caption, isFull);
+    });
+}
+
 function closeModal() {
     $('#modalDialog > .modal-dialog > .modal-content > .modal-body').html('');
     $('#modalDialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modalDialog').modal('hide');
+}
+
+function clearModalLv2() {
+    $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-body').html('');
+    $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
+    $('#modalDialogLv2').modal('hide');
 }
 
 function showModal(caption, isFull, med) {
@@ -164,6 +178,51 @@ function showModal(caption, isFull, med) {
     $('#modalDialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text(caption);
     $('#modalDialog').modal('show');
 }
+
+function showModalLv2(caption, isFull) {
+    if (typeof (isFull) === "boolean") {
+        if (isFull)
+            $('#modalDialogLv2 > .modal-dialog').addClass('modal-full');
+        else
+            $('#modalDialogLv2 > .modal-dialog').removeClass('modal-full');
+    } else {
+        if (typeof (isFull) === "number") {
+            var x = isFull;
+            switch (true) {
+                case (x >= 20 && x < 30):
+                    $('#modalDialog > .modal-dialog').addClass('modal-20');
+                    break;
+                case (x >= 30 && x < 40):
+                    $('#modalDialog > .modal-dialog').addClass('modal-30');
+                    break;
+                case (x >= 40 && x < 50):
+                    $('#modalDialog > .modal-dialog').addClass('modal-40');
+                    break;
+                case (x >= 50 && x < 60):
+                    $('#modalDialog > .modal-dialog').addClass('modal-50');
+                    break;
+                case (x >= 60 && x < 70):
+                    $('#modalDialog > .modal-dialog').addClass('modal-60');
+                    break;
+                case (x >= 70 && x < 80):
+                    $('#modalDialog > .modal-dialog').addClass('modal-70');
+                    break;
+                case (x >= 80 && x < 90):
+                    $('#modalDialog > .modal-dialog').addClass('modal-80');
+                    break;
+                case (x >= 90):
+                    $('#modalDialog > .modal-dialog').addClass('modal-90');
+                    break;
+                default:
+                    $('#modalDialog > .modal-dialog').addClass('modal-full');
+                    break;
+            }
+        }
+    }
+    $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text(caption);
+    $('#modalDialogLv2').modal('show');
+}
+
 //LogOut
 function logout() {
     bootbox.confirm('Do you want to logout?',
@@ -7613,20 +7672,20 @@ function SetReq(div, x) {
          *
          * @return {integer} Current page index (zero based)
          *//**
-      * Set the current page.
-      *
-      * Note that if you attempt to show a page which does not exist, DataTables will
-      * not throw an error, but rather reset the paging.
-      *
-      * @param {integer|string} action The paging action to take. This can be one of:
-      *  * `integer` - The page index to jump to
-      *  * `string` - An action to take:
-      *    * `first` - Jump to first page.
-      *    * `next` - Jump to the next page
-      *    * `previous` - Jump to previous page
-      *    * `last` - Jump to the last page.
-      * @returns {DataTables.Api} this
-      */
+     * Set the current page.
+     *
+     * Note that if you attempt to show a page which does not exist, DataTables will
+     * not throw an error, but rather reset the paging.
+     *
+     * @param {integer|string} action The paging action to take. This can be one of:
+     *  * `integer` - The page index to jump to
+     *  * `string` - An action to take:
+     *    * `first` - Jump to first page.
+     *    * `next` - Jump to the next page
+     *    * `previous` - Jump to previous page
+     *    * `last` - Jump to the last page.
+     * @returns {DataTables.Api} this
+     */
         _api_register('page()', function (action) {
             if (action === undefined) {
                 return this.page.info().page; // not an expensive call
@@ -7688,11 +7747,11 @@ function SetReq(div, x) {
          * @return {integer} Current page length. Note `-1` indicates that all records
          *   are to be shown.
          *//**
-      * Set the current page length.
-      *
-      * @param {integer} Page length to set. Use `-1` to show all records.
-      * @returns {DataTables.Api} this
-      */
+     * Set the current page length.
+     *
+     * @param {integer} Page length to set. Use `-1` to show all records.
+     * @returns {DataTables.Api} this
+     */
         _api_register('page.len()', function (len) {
             // Note that we can't call this function 'length()' because `length`
             // is a Javascript property of functions which defines how many arguments
@@ -7803,12 +7862,12 @@ function SetReq(div, x) {
          *
          * @return {string} Current Ajax source URL
          *//**
-      * Set the Ajax URL. Note that this will set the URL for all tables in the
-      * current context.
-      *
-      * @param {string} url URL to set.
-      * @returns {DataTables.Api} this
-      */
+     * Set the Ajax URL. Note that this will set the URL for all tables in the
+     * current context.
+     *
+     * @param {string} url URL to set.
+     * @returns {DataTables.Api} this
+     */
         _api_register('ajax.url()', function (url) {
             var ctx = this.context;
 
@@ -9151,23 +9210,23 @@ function SetReq(div, x) {
          *   direction of the sort (`desc` or `asc`) and, optionally, the third is the
          *   index of the sorting order from the `column.sorting` initialisation array.
          *//**
-      * Set the ordering for the table.
-      *
-      * @param {integer} order Column index to sort upon.
-      * @param {string} direction Direction of the sort to be applied (`asc` or `desc`)
-      * @returns {DataTables.Api} this
-      *//**
-         * Set the ordering for the table.
-         *
-         * @param {array} order 1D array of sorting information to be applied.
-         * @param {array} [...] Optional additional sorting conditions
-         * @returns {DataTables.Api} this
-         *//**
-        * Set the ordering for the table.
-        *
-        * @param {array} order 2D array of sorting information to be applied.
-        * @returns {DataTables.Api} this
-        */
+     * Set the ordering for the table.
+     *
+     * @param {integer} order Column index to sort upon.
+     * @param {string} direction Direction of the sort to be applied (`asc` or `desc`)
+     * @returns {DataTables.Api} this
+     *//**
+           * Set the ordering for the table.
+           *
+           * @param {array} order 1D array of sorting information to be applied.
+           * @param {array} [...] Optional additional sorting conditions
+           * @returns {DataTables.Api} this
+           *//**
+       * Set the ordering for the table.
+       *
+       * @param {array} order 2D array of sorting information to be applied.
+       * @returns {DataTables.Api} this
+       */
         _api_register('order()', function (order, dir) {
             var ctx = this.context;
 

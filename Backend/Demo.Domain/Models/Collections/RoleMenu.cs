@@ -9,9 +9,6 @@ namespace Demo.Domain.Models.Collections
     {
         public string Role { get; set; }
 
-        public string MenuCode
-        {
-            get; set;
-        }
+        public string MenuCode { get; set; }
     }
 }
