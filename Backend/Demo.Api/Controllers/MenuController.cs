@@ -74,5 +74,11 @@ namespace Demo.Api.Controllers
         {
             return Ok(await _service.DeleteByIdAsync(id));
         }
+
+        [HttpDelete("DeleteRoleMenu/{id}")]
+        public async Task<IActionResult> DeleteRoleMenu(string id)
+        {
+            return Ok(await _service.DeleteRoleMenuByIdAsync(id));
+        }
     }
 }

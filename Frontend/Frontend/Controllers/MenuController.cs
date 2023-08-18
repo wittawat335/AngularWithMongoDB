@@ -98,5 +98,11 @@ namespace Frontend.Controllers
         {
             return new JsonResult(await _MenuApiService.DeleteAsync(_config.BaseUrlApi + string.Format("Menu/{0}", id)));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteRoleMenu(string id)
+        {
+            return new JsonResult(await _MenuApiService.DeleteAsync(_config.BaseUrlApi + string.Format("Menu/DeleteRoleMenu/{0}", id)));
+        }
     }
 }

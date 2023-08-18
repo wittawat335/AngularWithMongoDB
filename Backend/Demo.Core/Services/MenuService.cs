@@ -60,11 +60,13 @@ namespace Demo.Core.Services
         public async Task<Response<List<RoleMenuDTO>>> GetAllRoleMenu(string role)
         {
             IQueryable<RoleMenu> tbRoleMenu = _roleMenuRepository.AsQueryable();
+            if (role != null)
+                tbRoleMenu = tbRoleMenu.Where(x => x.Role == role);
             IQueryable<Menu> tbMenu = _menuRepository.AsQueryable();
             var response = new Response<List<RoleMenuDTO>>();
             try
             {
-                IQueryable<RoleMenuDTO> tbResult = (from r in tbRoleMenu.Where(x => x.Role == role)
+                IQueryable<RoleMenuDTO> tbResult = (from r in tbRoleMenu
                                                     join m in tbMenu on r.MenuCode equals m.MenuCode
                                                     select new RoleMenuDTO
                                                     {
@@ -145,6 +147,24 @@ namespace Demo.Core.Services
             try
             {
                 await _menuRepository.DeleteByIdAsync(id);
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.DeleteComplete;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Exception Occurs : " + ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<ResponseStatus> DeleteRoleMenuByIdAsync(string id)
+        {
+            var response = new ResponseStatus();
+            try
+            {
+                await _roleMenuRepository.DeleteByIdAsync(id);
                 response.IsSuccess = Constants.StatusData.True;
                 response.Message = Constants.Msg.DeleteComplete;
             }

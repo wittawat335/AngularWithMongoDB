@@ -21,5 +21,6 @@ namespace Demo.Core.Interfaces
         Task<ResponseStatus> AddRoleManuAsync(RoleMenuDTO model);
         Task<ResponseStatus> UpdateAsync(MenuDTO model);
         Task<ResponseStatus> DeleteByIdAsync(string id);
+        Task<ResponseStatus> DeleteRoleMenuByIdAsync(string id);
     }
 }
