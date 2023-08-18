@@ -56,7 +56,7 @@ namespace Demo.Api.Controllers
 
         //[Authorize(Roles = "Manager")]
         [HttpPost("AddRoleMenu")]
-        public async Task<IActionResult> AddRoleMenu(RoleMenu model)
+        public async Task<IActionResult> AddRoleMenu(RoleMenuDTO model)
         {
             return Ok(await _service.AddRoleManuAsync(model));
         }

@@ -5,14 +5,14 @@
     <div class="card">
         <div class="card-body">
             <div class="float-end">
-                <a class="btn btn-warning mt-3" onclick="PopupNew()">
+                <a class="btn btn-success mt-3 mb-3" onclick="PopupNew()">
                     <i class="bi bi-plus-lg me-1"></i>
                     Add Menu To Role
                 </a>
             </div>
             <table id="tbdSearh" class="table table-hover">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <th scope="col">Role</th>
                         <th scope="col">Menu</th>
                         <th scope="col"></th>
@@ -23,7 +23,7 @@
                     {
                         @foreach (var item in Model)
                         {
-                            <tr>
+                            <tr class="text-center">
                                 <td>@item.Role</td>
                                 <td>@item.MenuName</td>
                                 <td>

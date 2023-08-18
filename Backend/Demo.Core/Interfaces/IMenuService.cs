@@ -18,7 +18,7 @@ namespace Demo.Core.Interfaces
         Task<Response<List<RoleMenuDTO>>> GetAllRoleMenu(string role);
         Task<Response<MenuDTO>> GetByIdAsync(string id);
         Task<ResponseStatus> AddAsync(MenuInput model);
-        Task<ResponseStatus> AddRoleManuAsync(RoleMenu model);
+        Task<ResponseStatus> AddRoleManuAsync(RoleMenuDTO model);
         Task<ResponseStatus> UpdateAsync(MenuDTO model);
         Task<ResponseStatus> DeleteByIdAsync(string id);
     }

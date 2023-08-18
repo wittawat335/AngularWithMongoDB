@@ -58,7 +58,7 @@ namespace Frontend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> _RoleMenu()
+        public async Task<IActionResult> _RoleMenu() //Modal Lv1
         {
             var model = new MenuViewModel();
             var listRole = await _roleApiService.GetListAsync(_config.BaseUrlApi + "Authentication/GetRoleList");
@@ -69,7 +69,7 @@ namespace Frontend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> _AddRoleMenu()
+        public async Task<IActionResult> _AddRoleMenu() //Modal Lv2
         {
             var model = new MenuViewModel();
             var listRole = await _roleApiService.GetListAsync(_config.BaseUrlApi + "Authentication/GetRoleList");
@@ -85,6 +85,12 @@ namespace Frontend.Controllers
         public async Task<IActionResult> Save(MenuViewModel model)
         {
             return new JsonResult(await _service.Save(model));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveRoleMenu(MenuViewModel model)
+        {
+            return new JsonResult(await _roleMenuApiService.InsertAsync(_config.BaseUrlApi + "Menu/AddRoleMenu", model.roleMenuDTO));
         }
 
         [HttpPost]

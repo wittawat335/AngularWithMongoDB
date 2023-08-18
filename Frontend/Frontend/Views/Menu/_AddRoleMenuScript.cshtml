@@ -1,0 +1,41 @@
+﻿@using Frontend.Models.ViewModel.Menu;
+@using Frontend.Utilities;
+@model MenuViewModel;
+<style>
+    #modalDialogLv2 {
+        --bs-modal-width: 30%;
+    }
+</style>
+<script>
+    $(function () {
+        SetSelect2InModal();
+    })
+
+    function SetSelect2InModal() {
+        $('#@Html.IdFor(x => x.roleMenuDTO.Role)').select2({
+            width: '100%',
+            dropdownParent: $('#modalDialogLv2')
+        });
+        $('#@Html.IdFor(x => x.roleMenuDTO.MenuCode)').select2({
+            width: '100%',
+            dropdownParent: $('#modalDialogLv2')
+        });
+    }
+
+    function SaveRoleMenu() {
+        let role = $('#@Html.IdFor(x => x.roleMenuDTO.Role) Option:Selected').text();
+        let url = '@Url.Content(Constants.UrlAction.Menu.SaveRoleMenu)';
+        let data = $('#frmRoleMenu').serializeObject();
+
+        $.post(url, data, function (response) {
+            if (response.isSuccess) {
+                swalMessage('success', response.message);
+                clearModalLv2();
+                GetListRoleMenuByRole(role);
+            }
+            else {
+                swalMessage('error', response.message);
+            }
+        });
+    }
+</script>

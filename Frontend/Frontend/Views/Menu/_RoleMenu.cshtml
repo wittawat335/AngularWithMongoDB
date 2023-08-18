@@ -20,36 +20,7 @@
 <div class="row" id="dvShowListRoleMenu" style="display:none">
     <partial name="_ShowListRoleMenu.cshtml" model="@Model.listRoleMenu" />
 </div>
-<style>
-    .modal {
-        --bs-modal-width: 30%;
-    }
-</style>
-<script>
-    $(function () {
-        $("#ddlRole").change(function () {
-            $.ajax({
-                type: "POST",
-                url: "/Menu/GetListRoleMenuByRole",
-                data: {
-                    "role": $('#ddlRole Option:Selected').text()
-                },
-                success: function (response) {
-                    $("#dvShowListRoleMenu").html("");
-                    $("#dvShowListRoleMenu").html(response);
-                    $("#dvShowListRoleMenu").fadeIn();
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            });
-        });
-    });
-    function PopupNew() {
-        var data = {};
-        modalPOSTLv2("Add Role Menu", "Menu", "_AddRoleMenu", data, 20);
-    }
-</script>
-@* @{
-    await Html.RenderPartialAsync("_RoleMenuScript", Model);
-} *@
+
+@{
+    await Html.RenderPartialAsync("_RoleMenuScript");
+}

@@ -43,6 +43,7 @@ namespace Frontend.Utilities
                 public const string SaveRoleMenu = "~/Menu/SaveRoleMenu";
                 public const string Delete = "~/Menu/Delete";
                 public const string DeleteRoleMenu = "~/Menu/DeleteRoleMenu";
+                public const string GetListRoleMenuByRole = "~/Menu/GetListRoleMenuByRole";
             }
             public struct User
             {

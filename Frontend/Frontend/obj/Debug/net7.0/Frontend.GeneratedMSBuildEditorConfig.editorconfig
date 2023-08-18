@@ -44,6 +44,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxfQWRkUm9sZU1lbnUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/Project 2023/Angular &&  RestfulAPI/CRUDWithMongoDB/Frontend/Frontend/Views/Menu/_AddRoleMenuScript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxfQWRkUm9sZU1lbnVTY3JpcHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/Project 2023/Angular &&  RestfulAPI/CRUDWithMongoDB/Frontend/Frontend/Views/Menu/_DataTableScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxfRGF0YVRhYmxlU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -62,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/Project 2023/Angular &&  RestfulAPI/CRUDWithMongoDB/Frontend/Frontend/Views/Menu/_RoleMenu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxfUm9sZU1lbnUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Project 2023/Angular &&  RestfulAPI/CRUDWithMongoDB/Frontend/Frontend/Views/Menu/_RoleMenuScript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxfUm9sZU1lbnVTY3JpcHQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/Project 2023/Angular &&  RestfulAPI/CRUDWithMongoDB/Frontend/Frontend/Views/Menu/_ShowListRoleMenu.cshtml]

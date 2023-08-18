@@ -16,6 +16,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Demo.Core.Services
 {
@@ -181,12 +182,13 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> AddRoleManuAsync(RoleMenu model)
+        public async Task<ResponseStatus> AddRoleManuAsync(RoleMenuDTO model)
         {
             var response = new ResponseStatus();
             try
             {
-                await _roleMenuRepository.InsertOneAsync(model);
+                var data = _mapper.Map<RoleMenuInput>(model);
+                await _roleMenuRepository.InsertOneAsync(_mapper.Map<RoleMenu>(data));
                 response.IsSuccess = Constants.StatusData.True;
                 response.Message = Constants.Msg.InsertComplete;
             }

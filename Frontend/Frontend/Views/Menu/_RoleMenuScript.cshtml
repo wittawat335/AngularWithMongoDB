@@ -1,0 +1,46 @@
+﻿@using Frontend.Utilities;
+<style>
+    .modal {
+        --bs-modal-width: 30%;
+    }
+</style>
+<script>
+    $(function () {
+        OnLoad();
+    });
+
+    function OnLoad() {
+        $('#ddlRole').select2({
+            width: '100%',
+            dropdownParent: $('#modalDialog')
+        });
+
+        $("#ddlRole").change(function () {
+            GetListRoleMenuByRole($('#ddlRole Option:Selected').text());
+        });
+    }
+
+    function GetListRoleMenuByRole(role) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content(Constants.UrlAction.Menu.GetListRoleMenuByRole)',
+            data: {
+                "role": role
+            },
+            success: function (response) {
+                $("#dvShowListRoleMenu").html("");
+                $("#dvShowListRoleMenu").html(response);
+                $("#tbdSearh").DataTable();
+                $("#dvShowListRoleMenu").fadeIn();
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    function PopupNew() {
+        var data = {};
+        modalPOSTLv2("Add Role Menu", "Menu", "_AddRoleMenu", data, 20);
+    }
+</script>
