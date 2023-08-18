@@ -8,6 +8,7 @@ namespace Frontend.Models.ViewModel.Product
         public List<ProductDTO> listProduct { get; set; }
         public List<CategoryDTO> listCategory { get; set; }
         public string action { get; set; }
+        public string role { get; set; }
         public ProductViewModel()
         {
             productDTO = new ProductDTO();

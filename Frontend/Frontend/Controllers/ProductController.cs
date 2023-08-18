@@ -5,6 +5,7 @@ using Frontend.Models.ViewModel.Product;
 using Frontend.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Controller;
 using System.IO;
 
 namespace Frontend.Controllers
@@ -15,6 +16,7 @@ namespace Frontend.Controllers
         private readonly IBaseApiService<CategoryDTO> _cateApiService;
         private readonly IBaseApiService<ProductDTO> _baseApiService;
         private readonly IAppSetting _config;
+        Common common = new Common();
 
         public ProductController(IProductService service, IBaseApiService<ProductDTO> baseApiService, IBaseApiService<CategoryDTO> cateApiService, IAppSetting config)
         {
@@ -28,7 +30,9 @@ namespace Frontend.Controllers
         {
             var model = new ProductViewModel();
             var listCategory = await _cateApiService.GetListAsync(_config.BaseUrlApi + "Category/GetAll");
+            var loginInfo = common.GetValueBySession();
 
+            model.role = loginInfo.roleName;
             model.listCategory = listCategory.Value;
 
             return View(model);

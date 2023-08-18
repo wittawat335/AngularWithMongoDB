@@ -2,11 +2,13 @@
 @using Frontend.Models.ViewModel.Product;
 @using Frontend.Utilities;
 @model ProductViewModel;
+@{
+    var common = new Common();
+    var loginInfo = common.GetValueBySession();
+}
 <script>
-    var urlDelete = '@Url.Content(Constants.UrlAction.Product.Delete)';
-    var permEdit;
-    var permView;
-
+    let urlDelete = '@Url.Content(Constants.UrlAction.Product.Delete)';
+    let role = '@Model.role';
 
     $(document).ready(function () {
         ClearDataTable("dtResult");
@@ -98,12 +100,18 @@
                 {
                     data: 'null',
                     render: function (data, type, row, meta) {
-                        return '<a class="btn btn-info me-2" onclick=PopupDetail("' + row.id + '","View");>'
-                            + '<i class="bi bi-search"></i></a>'
-                            + '<a class="btn btn-warning me-2" onclick=PopupDetail("' + row.id + '","Edit");>'
-                            + '<i class="bi bi-pencil-fill"></i></a>'
-                            + '<a class="btn btn-danger" onclick=Delete("' + row.id + '","' + row.productName + '","' + urlDelete + '");>'
-                            + '<i class="bi bi-trash-fill"></a>'
+                        if (role != "Manager") {
+                            return '<a class="btn btn-info me-2" onclick=PopupDetail("' + row.id + '","View");>'
+                                + '<i class="bi bi-search"></i></a>';
+                        }
+                        else {
+                            return '<a class="btn btn-info me-2" onclick=PopupDetail("' + row.id + '","View");>'
+                                + '<i class="bi bi-search"></i></a>'
+                                + '<a class="btn btn-warning me-2" onclick=PopupDetail("' + row.id + '","Edit");>'
+                                + '<i class="bi bi-pencil-fill"></i></a>'
+                                + '<a class="btn btn-danger" onclick=Delete("' + row.id + '","' + row.productName + '","' + urlDelete + '");>'
+                                + '<i class="bi bi-trash-fill"></a>'
+                        }
                     }
                 }
             ]

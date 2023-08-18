@@ -2,14 +2,20 @@
 @using Frontend.Models.ViewModel.Menu;
 @using Frontend.Utilities;
 @model List<RoleMenuDTO>
+@{
+    var common = new Common();
+    var loginInfo = common.GetValueBySession();
+}
 <div class="col-md-12">
     <div class="card">
         <div class="card-body">
             <div class="float-end">
-                <a class="btn btn-success mt-3 mb-3" onclick="PopupNew()">
-                    <i class="bi bi-plus-lg me-1"></i>
-                    Add Menu To Role
-                </a>
+                @if(loginInfo.roleName == "Manager"){
+                    <a class="btn btn-success mt-3 mb-3" onclick="PopupNew()">
+                        <i class="bi bi-plus-lg me-1"></i>
+                        Add Menu To Role
+                    </a>
+                }
             </div>
             <table id="tbdSearh" class="table table-hover">
                 <thead>
