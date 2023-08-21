@@ -26,9 +26,9 @@ namespace Demo.Core.Services
             _mapper = mapper;
         }
 
-        public async Task<ResponseStatus> AddAsync(Category model)
+        public async Task<Response<CategoryDTO>> AddAsync(Category model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<CategoryDTO>();
             try
             {
                 await _repository.InsertOneAsync(_mapper.Map<Category>(model));
@@ -44,9 +44,9 @@ namespace Demo.Core.Services
             return response;
         }
 
-        public async Task<ResponseStatus> DeleteByIdAsync(string id)
+        public async Task<Response<CategoryDTO>> DeleteByIdAsync(string id)
         {
-            var response = new ResponseStatus();
+            var response = new Response<CategoryDTO>();
             try
             {
                 await _repository.DeleteByIdAsync(id);
@@ -89,9 +89,9 @@ namespace Demo.Core.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ResponseStatus> UpdateAsync(CategoryDTO model)
+        public async Task<Response<CategoryDTO>> UpdateAsync(CategoryDTO model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<CategoryDTO>();
             try
             {
                 var findId = _repository.FindById(model.Id);

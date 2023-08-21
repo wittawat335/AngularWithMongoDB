@@ -6,23 +6,23 @@ namespace Demo.Api.Extensions
     {
         public static void ConfigureCorsPolicy(this IServiceCollection services, IConfiguration configuration)
         {
-            //var url = configuration.GetSection(Constants.AppSettings.Client_URL).Value;
-            //var CorsPolicy = configuration.GetSection(Constants.AppSettings.CorsPolicy).Value;
-            //services.AddCors(opt =>
-            //{
-            //    opt.AddPolicy(CorsPolicy, builder =>
-            //    {
-            //        builder.WithOrigins(url).AllowAnyHeader().AllowAnyMethod();
-            //    });
-            //});
-
+            var url = configuration.GetSection(Constants.AppSettings.Client_URL).Value;
+            var CorsPolicy = configuration.GetSection(Constants.AppSettings.CorsPolicy).Value;
             services.AddCors(opt =>
             {
-                opt.AddPolicy("AllowOrigin", builder =>
+                opt.AddPolicy(CorsPolicy, builder =>
                 {
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    builder.WithOrigins(url);
                 });
             });
+
+            //services.AddCors(opt =>
+            //{
+            //    opt.AddPolicy("AllowOrigin", builder =>
+            //    {
+            //        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            //    });
+            //});
         }
     }
 }

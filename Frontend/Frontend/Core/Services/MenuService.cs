@@ -62,9 +62,9 @@ namespace Frontend.Core.Services
             return response.Value;
         }
 
-        public async Task<ResponseStatus> Save(MenuViewModel model)
+        public async Task<Response<MenuDTO>> Save(MenuViewModel model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<MenuDTO>();
             try
             {
                 if (model != null)

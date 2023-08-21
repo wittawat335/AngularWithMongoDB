@@ -52,7 +52,7 @@ namespace Frontend.Controllers
         [HttpPost]
         public async Task<IActionResult> Save(UserViewModel model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<UserDTO>();
             var baseUrlApi = _config.BaseUrlApi;
             try
             {

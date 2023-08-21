@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController : ControllerBase
@@ -80,7 +80,7 @@ namespace Demo.Api.Controllers
             return Ok(await _service.DeleteUser(id));
         }
 
-        [Authorize(Roles = "Manager")]
+        //[Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("CreateRole")]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleRequest request)

@@ -9,6 +9,6 @@ namespace Frontend.Core.Interfaces
         Task<Response<List<ProductDTO>>> Search(string url, ProductSearch filter);
         Task<List<ProductDTO>> Select2Product(string url, string query);
         Task<ProductViewModel> Detail(string id, string action);
-        Task<ResponseStatus> Save(ProductViewModel model);
+        Task<Response<ProductDTO>> Save(ProductViewModel model);
     }
 }

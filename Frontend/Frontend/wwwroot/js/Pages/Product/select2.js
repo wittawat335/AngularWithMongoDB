@@ -19,7 +19,6 @@ function setSelect2() {
             processResults: function (data) {
                 return {
                     results: $.map(data, function (obj) {
-                        console.log(obj);
                         return {
                             id: obj.id,
                             text: obj.productName

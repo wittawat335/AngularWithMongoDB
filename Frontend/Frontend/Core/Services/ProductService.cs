@@ -73,9 +73,9 @@ namespace Frontend.Core.Services
 
             return model;
         }
-        public async Task<ResponseStatus> Save(ProductViewModel model)
+        public async Task<Response<ProductDTO>> Save(ProductViewModel model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<ProductDTO>();
             var baseUrlApi = _config.BaseUrlApi;
             try
             {

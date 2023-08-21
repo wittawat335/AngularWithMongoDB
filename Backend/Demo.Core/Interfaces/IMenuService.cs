@@ -12,15 +12,16 @@ namespace Demo.Core.Interfaces
 {
     public interface IMenuService
     {
+        Response<List<MenuDTO>> GetListMenuExists(string role);
         Task<Response<string>> GetMenuNameByCode(string code);
         Response<List<MenuDTO>> GetList(Guid userId);
         Task<Response<List<MenuDTO>>> GetAll();
         Task<Response<List<RoleMenuDTO>>> GetAllRoleMenu(string role);
         Task<Response<MenuDTO>> GetByIdAsync(string id);
-        Task<ResponseStatus> AddAsync(MenuInput model);
-        Task<ResponseStatus> AddRoleManuAsync(RoleMenuDTO model);
-        Task<ResponseStatus> UpdateAsync(MenuDTO model);
-        Task<ResponseStatus> DeleteByIdAsync(string id);
-        Task<ResponseStatus> DeleteRoleMenuByIdAsync(string id);
+        Task<Response<MenuDTO>> AddAsync(MenuInput model);
+        Task<Response<RoleMenuDTO>> AddRoleManuAsync(RoleMenuDTO model);
+        Task<Response<MenuDTO>> UpdateAsync(MenuDTO model);
+        Task<Response<MenuDTO>> DeleteByIdAsync(string id);
+        Task<Response<RoleMenuDTO>> DeleteRoleMenuByIdAsync(string id);
     }
 }

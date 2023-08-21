@@ -1,22 +1,11 @@
 ﻿using AutoMapper;
 using Demo.Core.Interfaces;
-using Demo.Domain.DTOs.Category;
 using Demo.Domain.DTOs.Menu;
-using Demo.Domain.DTOs.Product;
 using Demo.Domain.Models;
 using Demo.Domain.Models.Collections;
 using Demo.Domain.RepositoryContract;
 using Demo.Domain.Utilities;
 using Microsoft.AspNetCore.Identity;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Demo.Core.Services
 {
@@ -40,6 +29,27 @@ namespace Demo.Core.Services
             _roleMenuRepository = roleMenuRepository;
             _menuRepository = menuRepository;
             _mapper = mapper;
+        }
+
+        public Response<List<MenuDTO>> GetListMenuExists(string role)
+        {
+            var response = new Response<List<MenuDTO>>();
+            IQueryable<RoleMenu> tbRoleMenu = _roleMenuRepository.AsQueryable();
+            IQueryable<Menu> tbMenu = _menuRepository.AsQueryable();
+            try
+            {
+                var siteLst = tbRoleMenu.Where(y => y.Role == role).Select(x => x.MenuCode);
+                var _result = tbMenu.Where(x => !siteLst.Contains(x.MenuCode));
+
+                response.Value = _mapper.Map<List<MenuDTO>>(_result);
+                response.IsSuccess = Constants.StatusData.True;
+                response.Message = Constants.Msg.GetList;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+            return response;
         }
         public async Task<Response<List<MenuDTO>>> GetAll()
         {
@@ -105,9 +115,9 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> AddAsync(MenuInput model)
+        public async Task<Response<MenuDTO>> AddAsync(MenuInput model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<MenuDTO>();
             try
             {
                 await _menuRepository.InsertOneAsync(_mapper.Map<Menu>(model));
@@ -122,9 +132,9 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> UpdateAsync(MenuDTO model)
+        public async Task<Response<MenuDTO>> UpdateAsync(MenuDTO model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<MenuDTO>();
             try
             {
                 var findId = await _menuRepository.FindByIdAsync(model.Id);
@@ -141,9 +151,9 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> DeleteByIdAsync(string id)
+        public async Task<Response<MenuDTO>> DeleteByIdAsync(string id)
         {
-            var response = new ResponseStatus();
+            var response = new Response<MenuDTO>();
             try
             {
                 await _menuRepository.DeleteByIdAsync(id);
@@ -159,9 +169,9 @@ namespace Demo.Core.Services
             return response;
         }
 
-        public async Task<ResponseStatus> DeleteRoleMenuByIdAsync(string id)
+        public async Task<Response<RoleMenuDTO>> DeleteRoleMenuByIdAsync(string id)
         {
-            var response = new ResponseStatus();
+            var response = new Response<RoleMenuDTO>();
             try
             {
                 await _roleMenuRepository.DeleteByIdAsync(id);
@@ -202,13 +212,15 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> AddRoleManuAsync(RoleMenuDTO model)
+        public async Task<Response<RoleMenuDTO>> AddRoleManuAsync(RoleMenuDTO model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<RoleMenuDTO>();
             try
             {
                 var data = _mapper.Map<RoleMenuInput>(model);
                 await _roleMenuRepository.InsertOneAsync(_mapper.Map<RoleMenu>(data));
+
+                response.Value = model;
                 response.IsSuccess = Constants.StatusData.True;
                 response.Message = Constants.Msg.InsertComplete;
             }

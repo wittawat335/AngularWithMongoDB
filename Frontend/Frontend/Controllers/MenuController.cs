@@ -2,9 +2,9 @@
 using Frontend.Core.Interfaces;
 using Frontend.DTOs;
 using Frontend.Models.ViewModel.Menu;
-using Frontend.Models.ViewModel.Product;
 using Frontend.Utilities;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Frontend.Controllers
 {
@@ -15,6 +15,7 @@ namespace Frontend.Controllers
         private readonly IBaseApiService<RoleMenuDTO> _roleMenuApiService;
         private readonly IMenuService _service;
         private readonly IAppSetting _config;
+        Common common = new Common();
 
         public MenuController(
             IBaseApiService<MenuDTO> menuApiService,
@@ -69,14 +70,13 @@ namespace Frontend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> _AddRoleMenu() //Modal Lv2
+        public async Task<IActionResult> _AddRoleMenu(string role) //Modal Lv2
         {
             var model = new MenuViewModel();
-            var listRole = await _roleApiService.GetListAsync(_config.BaseUrlApi + "Authentication/GetRoleList");
-            var listMenu = await _MenuApiService.GetListAsync(_config.BaseUrlApi + "Menu/GetAll");
+            var listMenu = await _MenuApiService.GetListAsync(_config.BaseUrlApi + string.Format("Menu/GetListMenuExists/{0}", role));
 
-            model.listRole = listRole.Value;
             model.listMenu = listMenu.Value;
+            model.roleMenuDTO.Role = role;
 
             return PartialView(model);
         }

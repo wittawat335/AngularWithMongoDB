@@ -72,7 +72,8 @@
     }
 
     function PopupNew() {
-        var data = {};
+        var value = $('#ddlRole Option:Selected').text();
+        var data = { "role": value };
         modalPOSTLv2("Add Role Menu", "Menu", "_AddRoleMenu", data, 20);
     }
 </script>

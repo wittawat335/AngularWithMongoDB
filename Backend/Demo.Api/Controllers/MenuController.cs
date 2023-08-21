@@ -17,6 +17,12 @@ namespace Demo.Api.Controllers
             _service = service;
         }
 
+        [HttpGet("GetListMenuExists/{role}")]
+        public IActionResult GetListMenuExists(string role)
+        {
+            return Ok(_service.GetListMenuExists(role));
+        }
+
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {

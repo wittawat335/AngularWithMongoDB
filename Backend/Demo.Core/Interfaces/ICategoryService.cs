@@ -14,9 +14,9 @@ namespace Demo.Core.Interfaces
     {
         Task<Response<List<CategoryDTO>>> GetAllAsync();
         Task<Response<CategoryDTO>> GetOneAsync(string code);
-        Task<ResponseStatus> AddAsync(Category model);
+        Task<Response<CategoryDTO>> AddAsync(Category model);
         Task<Response<CategoryDTO>> GetByIdAsync(string id);
-        Task<ResponseStatus> UpdateAsync(CategoryDTO model);
-        Task<ResponseStatus> DeleteByIdAsync(string id);
+        Task<Response<CategoryDTO>> UpdateAsync(CategoryDTO model);
+        Task<Response<CategoryDTO>> DeleteByIdAsync(string id);
     }
 }

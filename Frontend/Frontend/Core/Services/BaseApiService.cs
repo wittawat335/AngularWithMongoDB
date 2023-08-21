@@ -71,10 +71,10 @@ namespace Frontend.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> InsertAsync(string path, T request)
+        public async Task<Response<T>> InsertAsync(string path, T request)
         {
             var session = common.GetValueBySession();
-            var response = new ResponseStatus();
+            var response = new Response<T>();
             try
             {
                 using (var client = new HttpClient(_httpClientHandler))
@@ -85,7 +85,7 @@ namespace Frontend.Core.Services
                     if (result.IsSuccessStatusCode)
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
-                        response = JsonConvert.DeserializeObject<ResponseStatus>(data);
+                        response = JsonConvert.DeserializeObject<Response<T>>(data);
                     }
                 }
             }
@@ -99,6 +99,7 @@ namespace Frontend.Core.Services
         public async Task<Response<T>> PostAsJsonAsync(string path, T request)
         {
             var response = new Response<T>();
+            var session = common.GetValueBySession();
             try
             {
                 using (var client = new HttpClient(_httpClientHandler))
@@ -107,6 +108,7 @@ namespace Frontend.Core.Services
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
                     HttpResponseMessage result = await client.PostAsJsonAsync<T>(path, request);
                     if (result.IsSuccessStatusCode)
                     {
@@ -129,10 +131,12 @@ namespace Frontend.Core.Services
         public async Task<Response<T>> PostAsync(string path, T request)
         {
             var response = new Response<T>();
+            var session = common.GetValueBySession();
             try
             {
                 using (var client = new HttpClient(_httpClientHandler))
                 {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
                     StringContent content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
                     using (var result = await client.PostAsync(path, content))
                     {
@@ -152,10 +156,10 @@ namespace Frontend.Core.Services
         {
             throw new NotImplementedException();
         }
-        public async Task<ResponseStatus> PutAsync(string path, T request)
+        public async Task<Response<T>> PutAsync(string path, T request)
         {
             var session = common.GetValueBySession();
-            var response = new ResponseStatus();
+            var response = new Response<T>();
             try
             {
                 using (var client = new HttpClient(_httpClientHandler))
@@ -166,7 +170,7 @@ namespace Frontend.Core.Services
                     if (result.IsSuccessStatusCode)
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
-                        response = JsonConvert.DeserializeObject<ResponseStatus>(data);
+                        response = JsonConvert.DeserializeObject<Response<T>>(data);
                     }
                 }
             }
@@ -177,10 +181,10 @@ namespace Frontend.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> DeleteAsync(string path)
+        public async Task<Response<T>> DeleteAsync(string path)
         {
             var session = common.GetValueBySession();
-            var response = new ResponseStatus();
+            var response = new Response<T>();
             try
             {
                 using (var client = new HttpClient(_httpClientHandler))
@@ -192,7 +196,7 @@ namespace Frontend.Core.Services
                     if (result.IsSuccessStatusCode)
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
-                        response = JsonConvert.DeserializeObject<ResponseStatus>(data);
+                        response = JsonConvert.DeserializeObject<Response<T>>(data);
                     }
                 }
             }

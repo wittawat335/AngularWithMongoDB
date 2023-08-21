@@ -87,9 +87,9 @@ namespace Demo.Core.Services
         {
             throw new NotImplementedException();
         }
-        public async Task<ResponseStatus> AddAsync(ProductDTO model)
+        public async Task<Response<ProductDTO>> AddAsync(ProductDTO model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<ProductDTO>();
             try
             {
                 var test = _mapper.Map<ProductInput>(model);
@@ -105,9 +105,9 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> UpdateAsync(ProductDTO model)
+        public async Task<Response<ProductDTO>> UpdateAsync(ProductDTO model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<ProductDTO>();
             try
             {
                 var findId = _repository.FindById(model.Id);
@@ -124,9 +124,9 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> DeleteByIdAsync(string id)
+        public async Task<Response<ProductDTO>> DeleteByIdAsync(string id)
         {
-            var response = new ResponseStatus();
+            var response = new Response<ProductDTO>();
             try
             {
                 await _repository.DeleteByIdAsync(id);
@@ -141,7 +141,7 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public Task<ResponseStatus> DeleteListAsyncByCreateBy(string text)
+        public Task<Response<ProductDTO>> DeleteListAsyncByCreateBy(string text)
         {
             throw new NotImplementedException();
         }

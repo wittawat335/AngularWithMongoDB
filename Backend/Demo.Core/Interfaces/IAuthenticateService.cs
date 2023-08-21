@@ -9,9 +9,9 @@ namespace Demo.Core.Interfaces
         Response<List<RoleDTO>> GetRoleList();
         Task<Response<UserDTO>> GetByIdAsync(string id);
         Task<Response<LoginResponse>> LoginAsync(LoginRequest request);
-        Task<ResponseStatus> RegisterAsync(RegisterRequest request);
-        Task<ResponseStatus> CreateRoleAsync(CreateRoleRequest request);
-        Task<ResponseStatus> UpdateUser(UserDTO model);
-        Task<ResponseStatus> DeleteUser(string id);
+        Task<Response<UserDTO>> RegisterAsync(RegisterRequest request);
+        Task<Response<RoleDTO>> CreateRoleAsync(CreateRoleRequest request);
+        Task<Response<UserDTO>> UpdateUser(UserDTO model);
+        Task<Response<UserDTO>> DeleteUser(string id);
     }
 }

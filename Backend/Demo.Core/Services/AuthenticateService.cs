@@ -49,9 +49,9 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> CreateRoleAsync(CreateRoleRequest request)
+        public async Task<Response<RoleDTO>> CreateRoleAsync(CreateRoleRequest request)
         {
-            var response = new ResponseStatus();
+            var response = new Response<RoleDTO>();
             try
             {
                 var appRole = new Role
@@ -178,9 +178,9 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> RegisterAsync(RegisterRequest request)
+        public async Task<Response<UserDTO>> RegisterAsync(RegisterRequest request)
         {
-            var response = new ResponseStatus();
+            var response = new Response<UserDTO>();
             try
             {
                 var userExists = await _userManager.FindByNameAsync(request.UserName);
@@ -232,9 +232,9 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> UpdateUser(UserDTO model)
+        public async Task<Response<UserDTO>> UpdateUser(UserDTO model)
         {
-            var response = new ResponseStatus();
+            var response = new Response<UserDTO>();
             var findId = new User();
             try
             {
@@ -273,9 +273,9 @@ namespace Demo.Core.Services
 
             return response;
         }
-        public async Task<ResponseStatus> DeleteUser(string id)
+        public async Task<Response<UserDTO>> DeleteUser(string id)
         {
-            var response = new ResponseStatus();
+            var response = new Response<UserDTO>();
             try
             {
                 var user = await _userManager.FindByIdAsync(id);

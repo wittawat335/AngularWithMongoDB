@@ -1,4 +1,5 @@
-﻿using Frontend.Models.ViewModel.Menu;
+﻿using Frontend.DTOs;
+using Frontend.Models.ViewModel.Menu;
 using Frontend.Models.ViewModel.Product;
 using Frontend.Utilities;
 
@@ -8,6 +9,6 @@ namespace Frontend.Core.Interfaces
     {
         Task<MenuViewModel> Detail(string id, string action);
         Task<string> GetMenuNameByCode(string code);
-        Task<ResponseStatus> Save(MenuViewModel model);
+        Task<Response<MenuDTO>> Save(MenuViewModel model);
     }
 }
