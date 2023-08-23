@@ -29,7 +29,7 @@ namespace Frontend.Controllers
         public async Task<IActionResult> Index()
         {
             var model = new ProductViewModel();
-            var listCategory = await _cateApiService.GetListAsync(_config.BaseUrlApi + "Category/GetAll");
+            var listCategory = await _cateApiService.GetListAsync(_config.GetApiUrl() + "Category/GetAll");
             var loginInfo = common.GetValueBySession();
 
             model.role = loginInfo.roleName;

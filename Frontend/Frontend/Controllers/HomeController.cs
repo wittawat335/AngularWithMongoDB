@@ -13,15 +13,18 @@ namespace Frontend.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ILoginService _service;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IHostEnvironment _env;
 
         public HomeController(
             ILogger<HomeController> logger,
             ILoginService service,
-            IHttpContextAccessor contextAccessor)
+            IHttpContextAccessor contextAccessor,
+            IHostEnvironment env)
         {
             _logger = logger;
             _service = service;
             _contextAccessor = contextAccessor;
+            _env = env;
         }
 
         public IActionResult Index()
@@ -31,6 +34,11 @@ namespace Frontend.Controllers
                 return RedirectToAction("Login");
 
             return View();
+        }
+
+        public IActionResult CheckEnvironment()
+        {
+            return Content("Environment : " + _env.EnvironmentName);
         }
 
         public IActionResult Logout()
