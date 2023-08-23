@@ -1,11 +1,9 @@
-﻿using Frontend.Core.AppSettings;
-using Frontend.Core.Interfaces;
+﻿using Frontend.Core.Interfaces;
 using Frontend.Models;
 using Frontend.Models.ViewModel.Login;
 using Frontend.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace Frontend.Controllers
@@ -16,7 +14,10 @@ namespace Frontend.Controllers
         private readonly ILoginService _service;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public HomeController(ILogger<HomeController> logger, ILoginService service, IHttpContextAccessor contextAccessor)
+        public HomeController(
+            ILogger<HomeController> logger,
+            ILoginService service,
+            IHttpContextAccessor contextAccessor)
         {
             _logger = logger;
             _service = service;

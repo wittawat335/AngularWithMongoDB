@@ -7,6 +7,7 @@ namespace Frontend.Utilities
         public struct AppSettings
         {
             public const string BaseApiUrl = "AppSettings:BaseApiUrl";
+            public const string DockerBaseApiUrl = "AppSettings:DockerBaseApiUrl";
         }
         public struct SelectOption
         {

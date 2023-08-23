@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  demoDb:
+    container_name: demoDB
+    restart: always
+    ports:
+        - 27017:27017
+  demo.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - MongoDbSetting:ConnectionString=mongodb://demoDb:27017
+    depends_on:
+      - demoDb
+    ports:
+      - "7231:80"
+    # volumes:
+    #   - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    #   - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

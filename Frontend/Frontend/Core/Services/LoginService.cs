@@ -12,7 +12,10 @@ namespace Frontend.Core.Services
         private readonly IBaseApiService<LoginVIewModel> _baseApiService;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public LoginService(IAppSetting config, IBaseApiService<LoginVIewModel> baseApiService, IHttpContextAccessor contextAccessor)
+        public LoginService(
+            IAppSetting config,
+            IBaseApiService<LoginVIewModel> baseApiService,
+            IHttpContextAccessor contextAccessor)
         {
             _config = config;
             _baseApiService = baseApiService;
@@ -21,7 +24,7 @@ namespace Frontend.Core.Services
 
         public async Task<Response<LoginVIewModel>> Login(LoginVIewModel requert)
         {
-            var urlApi = _config.BaseUrlApi + Constants.UrlApi.Login;
+            var urlApi = _config.GetApiUrl() + Constants.UrlApi.Login;
             var response = new Response<LoginVIewModel>();
             try
             {

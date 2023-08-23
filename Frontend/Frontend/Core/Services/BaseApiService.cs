@@ -11,16 +11,12 @@ namespace Frontend.Core.Services
 {
     public class BaseApiService<T> : IBaseApiService<T> where T : class
     {
-        private readonly IAppSetting _config;
-        private readonly IHttpContextAccessor _contxt;
         HttpClientHandler _httpClientHandler = new HttpClientHandler();
         Common common = new Common();
 
-        public BaseApiService(IAppSetting config, IHttpContextAccessor contxt)
+        public BaseApiService()
         {
-            _config = config;
             _httpClientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-            _contxt = contxt;
         }
         public async Task<Response<List<T>>> GetListAsync(string path)
         {
@@ -108,7 +104,9 @@ namespace Frontend.Core.Services
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
+                    if (session.AccessToken != null && session.AccessToken != "")
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.AccessToken);
+
                     HttpResponseMessage result = await client.PostAsJsonAsync<T>(path, request);
                     if (result.IsSuccessStatusCode)
                     {

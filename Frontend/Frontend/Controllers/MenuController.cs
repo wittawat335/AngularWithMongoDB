@@ -37,7 +37,7 @@ namespace Frontend.Controllers
         }
         public async Task<IActionResult> GetListAsync()
         {
-            return new JsonResult(await _MenuApiService.GetListAsync(_config.BaseUrlApi + "Menu/GetAll"));
+            return new JsonResult(await _MenuApiService.GetListAsync(_config.GetApiUrl() + "Menu/GetAll"));
         }
 
         [HttpPost]
@@ -48,13 +48,13 @@ namespace Frontend.Controllers
 
         public async Task<IActionResult> GetListRoleMenu()
         {
-            return new JsonResult(await _roleMenuApiService.GetListAsync(_config.BaseUrlApi + "Menu/GetListRoleMenu"));
+            return new JsonResult(await _roleMenuApiService.GetListAsync(_config.GetApiUrl() + "Menu/GetListRoleMenu"));
         }
 
         [HttpPost]
         public async Task<IActionResult> GetListRoleMenuByRole(string role)
         {
-            var list = await _roleMenuApiService.GetListAsync(_config.BaseUrlApi + string.Format("Menu/GetListRoleMenu?role={0}", role));
+            var list = await _roleMenuApiService.GetListAsync(_config.GetApiUrl() + string.Format("Menu/GetListRoleMenu?role={0}", role));
             return PartialView("_ShowListRoleMenu", list.Value);
         }
 
@@ -62,7 +62,7 @@ namespace Frontend.Controllers
         public async Task<IActionResult> _RoleMenu() //Modal Lv1
         {
             var model = new MenuViewModel();
-            var listRole = await _roleApiService.GetListAsync(_config.BaseUrlApi + "Authentication/GetRoleList");
+            var listRole = await _roleApiService.GetListAsync(_config.GetApiUrl() + "Authentication/GetRoleList");
 
             model.listRole = listRole.Value;
 
@@ -73,7 +73,7 @@ namespace Frontend.Controllers
         public async Task<IActionResult> _AddRoleMenu(string role) //Modal Lv2
         {
             var model = new MenuViewModel();
-            var listMenu = await _MenuApiService.GetListAsync(_config.BaseUrlApi + string.Format("Menu/GetListMenuExists/{0}", role));
+            var listMenu = await _MenuApiService.GetListAsync(_config.GetApiUrl() + string.Format("Menu/GetListMenuExists/{0}", role));
 
             model.listMenu = listMenu.Value;
             model.roleMenuDTO.Role = role;
@@ -90,19 +90,19 @@ namespace Frontend.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveRoleMenu(MenuViewModel model)
         {
-            return new JsonResult(await _roleMenuApiService.InsertAsync(_config.BaseUrlApi + "Menu/AddRoleMenu", model.roleMenuDTO));
+            return new JsonResult(await _roleMenuApiService.InsertAsync(_config.GetApiUrl() + "Menu/AddRoleMenu", model.roleMenuDTO));
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            return new JsonResult(await _MenuApiService.DeleteAsync(_config.BaseUrlApi + string.Format("Menu/{0}", id)));
+            return new JsonResult(await _MenuApiService.DeleteAsync(_config.GetApiUrl() + string.Format("Menu/{0}", id)));
         }
 
         [HttpPost]
         public async Task<IActionResult> DeleteRoleMenu(string id)
         {
-            return new JsonResult(await _MenuApiService.DeleteAsync(_config.BaseUrlApi + string.Format("Menu/DeleteRoleMenu/{0}", id)));
+            return new JsonResult(await _MenuApiService.DeleteAsync(_config.GetApiUrl() + string.Format("Menu/DeleteRoleMenu/{0}", id)));
         }
     }
 }

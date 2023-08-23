@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  demoDb:
+    image: mongo
+  demo.api:
+    image: ${DOCKER_REGISTRY-}demoapi
+    build:
+      context: .
+      dockerfile: Demo.Api/Dockerfile
+
+volumes:
+  mongo_data:

@@ -4,10 +4,7 @@ using Frontend.DTOs;
 using Frontend.Models.ViewModel.Product;
 using Frontend.Utilities;
 using Newtonsoft.Json;
-using System.IO;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text;
 
 namespace Frontend.Core.Services
 {
@@ -17,7 +14,7 @@ namespace Frontend.Core.Services
         private readonly IBaseApiService<CategoryDTO> _cateApiService;
         private readonly IAppSetting _config;
         HttpClientHandler _httpClientHandler = new HttpClientHandler();
-        Utilities.Common common = new Utilities.Common();
+        Common common = new Common();
         public ProductService(IBaseApiService<ProductDTO> baseApiService, IBaseApiService<CategoryDTO> cateApiService, IAppSetting config)
         {
             _cateApiService = cateApiService;
@@ -54,8 +51,8 @@ namespace Frontend.Core.Services
         {
             var responseProduct = new Response<ProductDTO>();
             var model = new ProductViewModel();
-            var urlProductApi = _config.BaseUrlApi + string.Format("Product/GetById?id={0}", id);
-            var urlCategoryApi = _config.BaseUrlApi + "Category/GetAll";
+            var urlProductApi = _config.GetApiUrl() + string.Format("Product/GetById?id={0}", id);
+            var urlCategoryApi = _config.GetApiUrl() + "Category/GetAll";
             try
             {
                 if (!string.IsNullOrEmpty(id))
@@ -76,7 +73,7 @@ namespace Frontend.Core.Services
         public async Task<Response<ProductDTO>> Save(ProductViewModel model)
         {
             var response = new Response<ProductDTO>();
-            var baseUrlApi = _config.BaseUrlApi;
+            var baseUrlApi = _config.GetApiUrl();
             try
             {
                 if (model != null)

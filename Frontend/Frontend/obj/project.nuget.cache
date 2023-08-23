@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fWhGDJMmrlUlDfIikt2vIlTM4uVQhdE/hyzqj6cpSi9USvPotZRP1XVYpgdd85rTzs0ARyy5V2jJrwwKMaqNow==",
+  "dgSpecHash": "yfvWGpDdQf/srzdSXnvWLmtNShxKh9mCvolJCh2aq6CharuCFfncyxN78wiNgI519kJL2vK8jDrwKK1JeGm/vw==",
   "success": true,
   "projectFilePath": "E:\\Project 2023\\Angular &&  RestfulAPI\\CRUDWithMongoDB\\Frontend\\Frontend\\Frontend.csproj",
   "expectedPackageFiles": [
@@ -76,6 +76,7 @@
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.net.stringtools\\17.3.2\\microsoft.net.stringtools.17.3.2.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\witta\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.4\\microsoft.visualstudio.azure.containers.tools.targets.1.19.4.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration\\7.0.9\\microsoft.visualstudio.web.codegeneration.7.0.9.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.core\\7.0.9\\microsoft.visualstudio.web.codegeneration.core.7.0.9.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.design\\7.0.9\\microsoft.visualstudio.web.codegeneration.design.7.0.9.nupkg.sha512",
