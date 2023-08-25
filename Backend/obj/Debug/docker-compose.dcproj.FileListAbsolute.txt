@@ -37,3 +37,5 @@ E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\bin\Debug\Demo.In
 E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
 E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
 E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\obj\Debug\docker-compose.dcproj.CopyComplete
+E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\bin\Debug\appsettings.Production.json
+E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\bin\Debug\appsettings.Staging.json

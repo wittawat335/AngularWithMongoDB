@@ -62,3 +62,5 @@ E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\Demo.Api\obj\Debu
 E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\Demo.Api\obj\Debug\net7.0\Demo.Api.genruntimeconfig.cache
 E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\Demo.Api\obj\Debug\net7.0\ref\Demo.Api.dll
 E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\Demo.Api\obj\Debug\net7.0\Demo.Api.MvcApplicationPartsAssemblyInfo.cs
+E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\Demo.Api\bin\Debug\net7.0\appsettings.Production.json
+E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Backend\Demo.Api\bin\Debug\net7.0\appsettings.Staging.json

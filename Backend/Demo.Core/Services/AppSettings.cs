@@ -17,6 +17,5 @@ namespace Demo.Core.Services
 
         public string key => _configuration[Constants.AppSettings.JWT.Key];
 
-        public string TestEnv => _configuration[Constants.AppSettings.CheckEnvironment];
     }
 }

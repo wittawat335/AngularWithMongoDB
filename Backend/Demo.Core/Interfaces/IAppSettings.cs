@@ -10,6 +10,5 @@ namespace Demo.Core.Interfaces
     {
         string Client_URL { get; }
         string key { get; }
-        string TestEnv { get; }
     }
 }

@@ -14,9 +14,9 @@ namespace Demo.Api.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticateService _service;
-        private readonly IHostEnvironment _env;
+        private readonly IWebHostEnvironment _env;
 
-        public AuthenticationController(IAuthenticateService service, IHostEnvironment env)
+        public AuthenticationController(IAuthenticateService service, IWebHostEnvironment env)
         {
             _service = service;
             _env = env;
