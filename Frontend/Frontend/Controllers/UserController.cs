@@ -30,7 +30,7 @@ namespace Frontend.Controllers
 
         public async Task<IActionResult> GetList()
         {
-            return new JsonResult(await _baseApiService.GetListAsync(_config.GetApiUrl() + "Authentication/GetList"));
+            return new JsonResult(await _baseApiService.GetListAsync(_config.BaseUrlApi + "Authentication/GetList"));
         }
 
         [HttpPost]
@@ -39,9 +39,9 @@ namespace Frontend.Controllers
             var model = new UserViewModel();
             var user = new Response<UserDTO>();
             if (id != null)
-                user = await _baseApiService.GetAsyncById(_config.GetApiUrl() + string.Format("Authentication/{0}", id));
+                user = await _baseApiService.GetAsyncById(_config.BaseUrlApi + string.Format("Authentication/{0}", id));
 
-            var list = await _roleApiService.GetListAsync(_config.GetApiUrl() + "Authentication/GetRoleList");
+            var list = await _roleApiService.GetListAsync(_config.BaseUrlApi + "Authentication/GetRoleList");
             model.listRole = list.Value;
             model.userDTO = user.Value;
             model.action = action;
@@ -53,7 +53,7 @@ namespace Frontend.Controllers
         public async Task<IActionResult> Save(UserViewModel model)
         {
             var response = new Response<UserDTO>();
-            var baseUrlApi = _config.GetApiUrl();
+            var baseUrlApi = _config.BaseUrlApi;
             try
             {
                 if (model != null)
@@ -85,7 +85,7 @@ namespace Frontend.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            return new JsonResult(await _baseApiService.DeleteAsync(_config.GetApiUrl() + string.Format("Authentication/{0}", id)));
+            return new JsonResult(await _baseApiService.DeleteAsync(_config.BaseUrlApi + string.Format("Authentication/{0}", id)));
         }
     }
 }

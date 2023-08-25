@@ -29,7 +29,7 @@ namespace Frontend.Core.Services
         {
             var responseProduct = new Response<MenuDTO>();
             var model = new MenuViewModel();
-            var urlApi = _config.GetApiUrl() + string.Format("Menu/GetById?id={0}", id);
+            var urlApi = _config.BaseUrlApi + string.Format("Menu/GetById?id={0}", id);
             try
             {
                 if (!string.IsNullOrEmpty(id))
@@ -49,7 +49,7 @@ namespace Frontend.Core.Services
         public async Task<string> GetMenuNameByCode(string code)
         {
             var response = new Response<string>();
-            var path = _config.GetApiUrl() + string.Format("Menu/GetMenuNameByCode?code={0}", code);
+            var path = _config.BaseUrlApi + string.Format("Menu/GetMenuNameByCode?code={0}", code);
             try
             {
                 response = await _baseService.GetAsyncById(path);
@@ -71,11 +71,11 @@ namespace Frontend.Core.Services
                     switch (model.action)
                     {
                         case Constants.Action.New:
-                            response = await _baseApiService.InsertAsync(_config.GetApiUrl() + "Menu/Add", model.menuDTO);
+                            response = await _baseApiService.InsertAsync(_config.BaseUrlApi + "Menu/Add", model.menuDTO);
                             break;
 
                         case Constants.Action.Edit:
-                            response = await _baseApiService.PutAsync(_config.GetApiUrl() + "Menu/Update", model.menuDTO);
+                            response = await _baseApiService.PutAsync(_config.BaseUrlApi + "Menu/Update", model.menuDTO);
                             break;
 
                         default:

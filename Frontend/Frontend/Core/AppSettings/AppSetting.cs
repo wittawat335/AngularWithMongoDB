@@ -14,16 +14,5 @@ namespace Frontend.Core.AppSettings
         }
 
         public string BaseUrlApi => _configuration[Constants.AppSettings.BaseApiUrl];
-        public string DockerBaseApiUrl => _configuration[Constants.AppSettings.DockerBaseApiUrl];
-        public string GetApiUrl()
-        {
-            string path = "";
-            if (_env.IsDevelopment())
-                path = BaseUrlApi;
-            else if (_env.IsProduction())
-                path = DockerBaseApiUrl;
-
-            return path;
-        }
     }
 }

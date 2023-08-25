@@ -24,7 +24,7 @@ namespace Frontend.Core.Services
 
         public async Task<Response<LoginVIewModel>> Login(LoginVIewModel requert)
         {
-            var urlApi = _config.GetApiUrl() + Constants.UrlApi.Login;
+            var urlApi = _config.BaseUrlApi + Constants.UrlApi.Login;
             var response = new Response<LoginVIewModel>();
             try
             {

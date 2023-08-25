@@ -5,6 +5,7 @@ using Frontend.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using static Frontend.Utilities.Constants;
 
 namespace Frontend.Controllers
 {
@@ -13,18 +14,21 @@ namespace Frontend.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ILoginService _service;
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IHostEnvironment _env;
+        private readonly IWebHostEnvironment _env;
+        private readonly IConfiguration _configuration;
 
         public HomeController(
             ILogger<HomeController> logger,
             ILoginService service,
             IHttpContextAccessor contextAccessor,
-            IHostEnvironment env)
+            IWebHostEnvironment env,
+            IConfiguration configuration)
         {
             _logger = logger;
             _service = service;
             _contextAccessor = contextAccessor;
             _env = env;
+            _configuration = configuration;
         }
 
         public IActionResult Index()

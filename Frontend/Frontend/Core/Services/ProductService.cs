@@ -51,8 +51,8 @@ namespace Frontend.Core.Services
         {
             var responseProduct = new Response<ProductDTO>();
             var model = new ProductViewModel();
-            var urlProductApi = _config.GetApiUrl() + string.Format("Product/GetById?id={0}", id);
-            var urlCategoryApi = _config.GetApiUrl() + "Category/GetAll";
+            var urlProductApi = _config.BaseUrlApi + string.Format("Product/GetById?id={0}", id);
+            var urlCategoryApi = _config.BaseUrlApi + "Category/GetAll";
             try
             {
                 if (!string.IsNullOrEmpty(id))
@@ -73,7 +73,7 @@ namespace Frontend.Core.Services
         public async Task<Response<ProductDTO>> Save(ProductViewModel model)
         {
             var response = new Response<ProductDTO>();
-            var baseUrlApi = _config.GetApiUrl();
+            var baseUrlApi = _config.BaseUrlApi;
             try
             {
                 if (model != null)

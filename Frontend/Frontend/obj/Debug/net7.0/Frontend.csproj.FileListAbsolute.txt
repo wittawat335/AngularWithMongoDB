@@ -221,3 +221,5 @@ E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Frontend\Frontend\bin\Deb
 E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Frontend\Frontend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Frontend\Frontend\obj\Debug\net7.0\Frontend.csproj.AssemblyReference.cache
 E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Frontend\Frontend\obj\Debug\net7.0\Frontend.csproj.CopyComplete
+E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Frontend\Frontend\bin\Debug\net7.0\appsettings.Production.json
+E:\Project 2023\Angular &&  RestfulAPI\CRUDWithMongoDB\Frontend\Frontend\bin\Debug\net7.0\appsettings.Staging.json
